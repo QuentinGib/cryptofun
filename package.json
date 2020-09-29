@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/QuentinGib/cryptofun/issues"
   },
-  "homepage": "https://github.com/QuentinGib/cryptofun#readme"
+  "homepage": "https://github.com/QuentinGib/cryptofun#readme",
+  "devDependencies": {
+    "parcel": "^1.12.4"
+  }
 }
