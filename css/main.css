@@ -4,6 +4,11 @@ html {
 body {
 }
 
+.burger,
+.hidden {
+    display: none;
+}
+
 .main-footer {
     bottom: 0;
     background-color: #333;
@@ -118,4 +123,44 @@ h3 {
 .logoRip {
     height: 15%;
     width: 15%;
+}
+
+@media only screen and (max-device-width: 1024px) {
+    
+    .main-nav {
+        display: none;
+    }
+
+    .burger {
+        flex-basis: 25%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        order: 2;
+    }
+
+    .burger-nav {
+        display: flex;
+        flex-basis: 100%;
+        align-items: center;
+        flex-flow: column wrap;
+        flex-grow: 1;   
+        justify-content: center;
+    }
+
+    .burger-tab {
+        font-size: 1em;
+        font-weight: 300;
+
+        color: #000;
+
+        text-decoration: none;
+
+        padding-bottom: 0.8em;
+        border-bottom: 6px solid transparent;
+    }
+
+    .burger-tab.active {
+        color: #BDBDBD;
+    }
 }

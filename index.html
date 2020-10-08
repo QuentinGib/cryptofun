@@ -6,6 +6,7 @@
     <title>CryptoFun</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -20,9 +21,19 @@
             <a class="main-tab" href="/PorteMonnaie.html">Porte Monnaie</a>
             <a class="main-tab" href="/APropos.html">A propos</a>
         </nav>
+        <div class='burger'>
+            <i class="fas fa-bars" id='toggle-burger'></i>
+        </div>
     </div>
     
     <main>
+        <nav class="burger-nav  hidden" id=burgernav>
+            <span class="burger-tab active">Accueil</span>
+            <a class="burger-tab" href="/Comprendre.html">Comprendre</a>
+            <a class="burger-tab" href="/Graphiques.html">Graphiques</a>
+            <a class="burger-tab" href="/PorteMonnaie.html">Porte Monnaie</a>
+            <a class="burger-tab" href="/APropos.html">A propos</a>
+        </nav>
         <header class="titre-page">
             <h2>ENTREZ DANS LE MONDE DE LA CRYPTO</h2>
         </header>
@@ -38,5 +49,6 @@
         <p>Lorem ipsum dolor</p>
     </div>
     <footer class="main-footer"> Quentin GIBON & Lucas LEVY</footer>
+    <script src="./js/index.js"></script>
 </body>
 </html>

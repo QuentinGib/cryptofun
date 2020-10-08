@@ -1,7 +1,6 @@
-console.log('Hello World!')
+const toggleBurgerEl = document.getElementById('toggle-burger')
+const burgerEl = document.getElementById('burgernav')
 
-var obj = {
-    name: 'stan'
+toggleBurgerEl.onclick = function toggleBurger(e) {
+    burgerEl.classList.toggle('hidden')
 }
-console.log(typeof obj)
-console.log(obj.name)
