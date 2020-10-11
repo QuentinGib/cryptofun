@@ -164,3 +164,48 @@ h3 {
         color: #BDBDBD;
     }
 }
+
+.cours {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.cours_gauche {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    font-size: 3em;
+    font-weight: 300;
+    text-decoration: none;
+    color: #000;
+}
+
+.cours_droite {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    font-size: 3em;
+    font-weight: 300;
+    text-decoration: none;
+    color: #000;
+}
+
+.imgBlockchain {
+    height: 45%;
+    width: 45%;
+
+    padding: 1.2em;
+    padding-bottom: 0.5em;
+}
+
+.imgCryptocurrency {
+    height: 60%;
+    width: 60%;
+
+    padding: 1.2em;
+    border-bottom: 1em;
+    padding-bottom: 0.5em;
+}
