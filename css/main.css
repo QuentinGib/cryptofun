@@ -4,17 +4,13 @@ html {
 body {
 }
 
-.burger{
-    display: none;
-    flex-basis: 25%;
-    justify-content: flex-end;
-    align-items: center;
-    order: 2;
-    
-}
 
 .burger-nav {
-    display: none;
+    display: flex;
+    visibility: hidden;
+    opacity: 0;
+    flex-direction: column;
+  
 }
 
 .main-footer {
@@ -137,6 +133,44 @@ h3 {
 
 @media only screen and (max-device-width: 1024px) {
     
+    .burger{
+        width: 30px;
+      height: 4px;
+      background: #000000;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(255,101,47,.2);
+      transition: all .5s ease-in-out;    
+    }
+    .burger::before,
+    .burger::after {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 4px;
+      background: #000000;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(255,101,47,.2);
+      transition: all .5s ease-in-out;
+    }
+    .burger::before {
+      transform: translateY(-10px);
+    }
+    .burger::after {
+      transform: translateY(10px);
+    }
+    .burger.active{
+        transform: translateX(-50px);
+        background: transparent;
+        box-shadow: none;
+      }
+      .burger.active::before {
+        transform: rotate(45deg) translate(35px, -35px);
+        
+      }
+      .burger.active::after {
+        transform: rotate(-45deg) translate(35px, 35px);
+        
+      }
     .main-nav {
         display: none;
     }
@@ -144,13 +178,21 @@ h3 {
     .burger {
         display: flex;
     }
+    .burger::before{
+        display:flex;
+    }
+    .burger::after{
+        display:flex;
+    }
 
     .burger-nav.active {
-        display: flex;
+        
         flex-direction: column;
         background-color: white;
         align-items: center;
-
+        visibility: visible;
+        opacity: 1;
+        transition: all 0.5s ease;
     }
 
     .burger-tab {

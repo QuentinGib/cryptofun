@@ -3,3 +3,8 @@ const mainnav= document.getElementById('burgernav')
 burger.addEventListener('click', () => {
     mainnav.classList.toggle('active');
 });
+const box= document.getElementById('bouton')
+burger.addEventListener('click', () => {
+    bouton.classList.toggle('active');
+});
+
