@@ -1,24 +1,27 @@
 {
-  "name": "project",
+  "name": "cryptofun",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel index.html",
-    "build": "parcel build index.html"
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/QuentinGib/cryptofun.git"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/QuentinGib/cryptofun/issues"
   },
   "homepage": "https://github.com/QuentinGib/cryptofun#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
   "devDependencies": {
-    "parcel": "^1.12.4"
+    "nodemon": "^2.0.6"
   }
 }

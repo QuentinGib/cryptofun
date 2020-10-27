@@ -1,3 +1,4 @@
+<template>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -10,22 +11,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="main-header">
-        <header class="main-header-title">
-            <H1><a class= toplink href="/index.html">
-                CRYPTO FUN 
-               </a></H1>
-        </header>
-        <div class='burger' id='bouton'></div>
-        <nav class="main-nav" id="mainnav">
-            <span class="main-tab active">Accueil</span>
-            <a class="main-tab" href="/Comprendre.html">Comprendre</a>
-            <a class="main-tab" href="/Graphiques.html">Graphiques</a>
-            <a class="main-tab" href="/PorteMonnaie.html">Porte Monnaie</a>
-            <a class="main-tab" href="/APropos.html">A propos</a>
-        </nav>
-    </div>
-    
     <main>
         <nav class="burger-nav" id=burgernav>
             <span class="burger-tab active">Accueil</span>
@@ -42,13 +27,21 @@
     <div class="block2">
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus, nulla ut commodo sagittis, sapien dui mattis dui, non pulvinar lorem felis nec erat Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
         <figure class="troisLogos">
-            <img class="logoEther" src="images/1200px-Ethereum_logo_2014.svg.png" alt="logo ethereum">
-            <img class="logoBtc" src="images/Bitcoin.svg.png" alt="logo bitcoin">
-            <img class="logoRip" src="images/ripple-triskelion-512.png" alt="logo ripple">
+            <img class="logoEther" src="../images/1200px-Ethereum_logo_2014.svg.png" alt="logo ethereum">
+            <img class="logoBtc" src="../images/Bitcoin.svg.png" alt="logo bitcoin">
+            <img class="logoRip" src="../images/ripple-triskelion-512.png" alt="logo ripple">
         </figure>
         <p>Lorem ipsum dolor</p>
     </div>
     <footer class="main-footer"> Quentin GIBON & Lucas LEVY</footer>
-    <script src="./js/index.js"></script>
 </body>
 </html>
+</template>
+
+<script>
+
+</script>
+
+<style>
+  @import '../css/main.css'
+</style>

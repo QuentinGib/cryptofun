@@ -1,3 +1,4 @@
+<template>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -10,22 +11,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="main-header">
-        <header class="main-header-title">
-            <H1><a class= toplink href="/index.html">
-                CRYPTO FUN 
-               </a></H1>
-        </header>
-        <div class='burger' id='bouton'></div>
-        
-        <nav class="main-nav">
-            <a class="main-tab" href="/index.html">Accueil</a>
-            <span class="main-tab active">Comprendre</span>
-            <a class="main-tab" href="/Graphiques.html">Graphiques</a>
-            <a class="main-tab" href="/PorteMonnaie.html">Porte Monnaie</a>
-            <a class="main-tab" href="/APropos.html">A propos</a>
-        </nav>
-    </div>
     <main>
         <nav class="burger-nav" id=burgernav>
             <a class="burger-tab active" href="/index.html">Accueil</a>
@@ -35,17 +20,26 @@
             <a class="burger-tab" href="/APropos.html">A propos</a>
         </nav>
         <div class="cours">
-            <a class="cours_gauche" href="/CoursBlockchain.html">
-                <img class="imgBlockchain" src="images/blockchain_icon.png" alt="image Blockchain">
+            <router-link class="cours_gauche" to="/cours/blockchain">
+                <img class="imgBlockchain" src="../images/blockchain_icon.png" alt="image Blockchain">
                 <figcapton>Blockchain </figcapton>
-                
-            </a>
-            <a class="cours_droite" href="/CoursCrypto.html">
-                <img class="imgCryptocurrency" src="images/cryptocurrency.png" alt="image Cryptocurrency">
+            </router-link>
+            <router-link class="cours_droite" to="/cours/crypto">
+                <img class="imgCryptocurrency" src="../images/cryptocurrency.png" alt="image Cryptocurrency">
                 <figcaption>Cryptomonnaies</figcaption>
-            </a>
-        </figure>
+            </router-link>
+        </div>
     </main>
-    <script src="./js/index.js"></script>
 </body>
 </html>
+</template>
+
+<script>
+export default {
+  name: 'Comprendre'
+}
+</script>
+
+<style>
+  @import '../css/main.css'
+</style>

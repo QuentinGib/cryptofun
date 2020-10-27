@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<template>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,23 +11,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="main-header">
-        <header class="main-header-title">
-            <H1><a class= toplink href="/index.html">
-             CRYPTO FUN 
-            </a></H1>
-            
-            
-        </header>
-        <div class='burger' id='bouton'></div>
-        <nav class="main-nav" id="mainnav">
-            <a class="main-tab" href="/index.html">Accueil</a>
-            <a class="main-tab" href="/Comprendre.html">Comprendre</a>
-            <a class="main-tab" href="/Graphiques.html">Graphiques</a>
-            <a class="main-tab" href="/PorteMonnaie.html">Porte Monnaie</a>
-            <span class="main-tab active">A propos</span>
-        </nav>
-    </div>
     <main>
         <nav class="burger-nav" id=burgernav>
             <a class="burger-tab" href="/index.html">Accueil</a>
@@ -36,6 +20,16 @@
             <span class="burger-tab active">A propos</span>
         </nav>
     </main>
-    <script src="./js/index.js"></script>
 </body>
 </html>
+</template>
+
+<script>
+export default {
+  name: 'Comprendre'
+}
+</script>
+
+<style>
+  @import '../css/main.css'
+</style>
