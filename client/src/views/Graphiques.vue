@@ -20,14 +20,6 @@
             <a class="burger-tab" href="/APropos.html">A propos</a>
         </nav>
     </main>
-    <ul>
-      <li
-        v-for="currency in currencies"
-        :key="currency"
-      >
-        {{currency}}
-      </li>
-    </ul>
 </body>
 </html>
 </template>
@@ -35,17 +27,15 @@
 <script>
 export default {
   name: 'Graphiques',
-  methods: {
-    getCurrencies () {
-      // Récupérer les crypto-monnaies du serveur
-      fetch('/api/v1/currencies')
-        .then(res => res.json())
-        .then(data => { this.currencies = data })
-    }
-  },
 
-  created () {
-    this.getCurrencies()
+  mounted () {
+    // Fetch de currencies
+    fetch('/api/v1/currencies')
+      .then(res => res.json())
+      .then(({ currencies }) => {
+        this.currencies = currencies
+      })
+      .catch(error => { this.error = error })
   }
 }
 </script>
