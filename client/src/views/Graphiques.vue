@@ -26,7 +26,17 @@
 
 <script>
 export default {
-  name: 'Comprendre'
+  name: 'Graphiques',
+
+  mounted () {
+    // Fetch de currencies
+    fetch('/api/v1/currencies')
+      .then(res => res.json())
+      .then(({ currencies }) => {
+        this.currencies = currencies
+      })
+      .catch(error => { this.error = error })
+  }
 }
 </script>
 

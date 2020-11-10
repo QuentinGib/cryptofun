@@ -1,10 +1,15 @@
+const dotenv = require('dotenv')
 const express = require('express')
-const app = express()
-const port = 3000
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+const router = require('./routes/index.js')
+
+const app = express()
+
+dotenv.config()
+
+const port = 4000
+
+app.use('/api/v1', router)
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
