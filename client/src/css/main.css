@@ -261,3 +261,31 @@ h3 {
     border-bottom: 1em;
     padding-bottom: 0.5em;
 }
+
+.info-currency {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+
+    background-color: #F7F7F7;
+    margin: 2em;
+    border-radius: 1em;
+}
+
+.currency-name {
+    padding-right: 10%;
+    padding-left: 2em;
+    font-size: 2em;
+    font-weight: 200;
+    text-decoration: none;
+    color:  #000;
+}
+
+.currency-price {
+    padding-left: 20%;
+
+    font-size: 2em;
+    font-weight: 200;
+    text-decoration: none;
+    color: #000;
+}

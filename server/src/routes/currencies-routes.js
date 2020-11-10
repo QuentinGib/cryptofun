@@ -4,6 +4,12 @@ const router = new express.Router()
 
 const apiBaseUrl = 'https://pro-api.coinmarketcap.com/v1'
 
+const usd = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2
+  });
+
 // Fonction réutilisable pour faire des appels à l'API CMC
 function fetchCMC (path) {
     const apiKey = process.env.CMC_API_KEY
@@ -39,7 +45,7 @@ router.get('/', function getRoot(req, res) {
                 id: currency.id,
                 name: currency.name,
                 slug: currency.slug,
-                quote: currency.quote,
+                price: usd.format(currency.quote.USD.price)
             })),
         })
     })
@@ -49,23 +55,6 @@ router.get('/', function getRoot(req, res) {
             message: error.message
         })
     })
-
-    /*
-    fetchCMC('/cryptocurrency/listings/latest')
-    .catch(error => {
-        res.json({
-            success: false,
-            message: error.message
-        })
-        throw error
-    })
-    .then(function (responseData) {
-        res.json({
-            success: true,
-            data: responseData.data
-        })
-    })
-    */
 })
 
 router.get('/:currencyslug', function getRoot(req, res) {

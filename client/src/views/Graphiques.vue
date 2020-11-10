@@ -20,6 +20,14 @@
             <a class="burger-tab" href="/APropos.html">A propos</a>
         </nav>
     </main>
+    <div>
+      <ul>
+        <li class="info-currency" v-for="currency in currencies.slice(0, 11)" :key="currency.id">
+          <p class="currency-name">{{ currency.name }}</p>
+          <p class="currency-price">{{ currency.price }}</p>
+        </li>
+      </ul>
+    </div>
 </body>
 </html>
 </template>
@@ -27,6 +35,13 @@
 <script>
 export default {
   name: 'Graphiques',
+
+  data () {
+    return {
+      currencies: [],
+      error: ''
+    }
+  },
 
   mounted () {
     // Fetch de currencies
