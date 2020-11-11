@@ -7,11 +7,11 @@
              </a></H1>
       </header>
       <div class="main-nav" id="mainnav">
-        <router-link class="main-tab" to="/">Home</router-link>
-        <router-link class="main-tab" :to="{name: 'comprendre'}">Comprendre</router-link>
-        <router-link class="main-tab" to="/graphiques">Graphiques</router-link>
-        <router-link class="main-tab" to="/porte_monnaie">Porte Monnaie</router-link>
-        <router-link class="main-tab" to="/a_propos">A propos</router-link>
+        <router-link tag="li" class="main-tab" to="/" >Home</router-link>
+        <router-link tag="li" class="main-tab" :to="{name: 'comprendre'}">Comprendre</router-link>
+        <router-link tag="li" class="main-tab" to="/graphiques">Graphiques</router-link>
+        <router-link tag="li" class="main-tab" to="/porte_monnaie">Porte Monnaie</router-link>
+        <router-link tag="li" class="main-tab" to="/a_propos">A propos</router-link>
       </div>
     </div>
     <router-view/>

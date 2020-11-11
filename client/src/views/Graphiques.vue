@@ -25,6 +25,12 @@
         <li class="info-currency" v-for="currency in currencies.slice(0, 11)" :key="currency.id">
           <p class="currency-name">{{ currency.name }}</p>
           <p class="currency-price">{{ currency.price }}</p>
+          <div v-if="currency.evolutionPrice >= 0">
+            <p class="priceIncrease">▲ {{ currency.evolutionPrice }} %</p>
+          </div>
+          <div v-else>
+            <p class="priceDecrease">▼ {{ Math.abs(currency.evolutionPrice) }} %</p>
+          </div>
         </li>
       </ul>
     </div>
