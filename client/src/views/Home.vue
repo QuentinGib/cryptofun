@@ -20,7 +20,7 @@
             <a class="burger-tab" href="/APropos.html">A propos</a>
         </nav>
         <header class="titre-page">
-            <h2>ENTREZ DANS LE MONDE DE LA CRYPTO</h2>
+            <h2>ENTREZ DANS LE MONDE DE LA CRYPTOS</h2>
         </header>
         <h3>Comprenez l'utilité et les technologies derrière les différentes cryptomonnaies, et achetez vos premiers coins</h3>
     </main>
