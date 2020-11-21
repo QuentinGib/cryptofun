@@ -7,6 +7,7 @@ import APropos from '@/views/APropos.vue'
 import Cours from '@/views/Cours.vue'
 import Blockchain from '@/views/Cours/Blockchain.vue'
 import Cryptomonnaies from '@/views/Cours/Cryptomonnaies.vue'
+import Wallet from '@/views/Wallet.vue'
 
 const routes = [
   {
@@ -27,7 +28,14 @@ const routes = [
   {
     path: '/porte_monnaie',
     name: 'porte_monnaie',
-    component: PorteMonnaie
+    component: PorteMonnaie,
+    children: [
+      {
+        path: 'wallet',
+        name: 'wallet',
+        component: Wallet
+      }
+    ]
   },
   {
     path: '/a_propos',
@@ -45,8 +53,8 @@ const routes = [
         component: Blockchain
       },
       {
-        path: 'crypto',
-        name: 'crypto',
+        path: 'cryptos',
+        name: 'cryptos',
         compononent: Cryptomonnaies
       }
     ]

@@ -12,13 +12,56 @@
 </head>
 <body>
     <main>
-        <nav class="burger-nav" id=burgernav>
-            <a class="burger-tab" href="/index.html">Accueil</a>
-            <a class="burger-tab" href="/Comprendre.html">Comprendre</a>
-            <a class="burger-tab" href="/Graphiques.html">Graphiques</a>
-            <span class="burger-tab active">Porte Monnaie</span>
-            <a class="burger-tab" href="/APropos.html">A propos</a>
-        </nav>
+      <nav class="burger-nav" id=burgernav>
+          <a class="burger-tab" href="/index.html">Accueil</a>
+          <a class="burger-tab" href="/Comprendre.html">Comprendre</a>
+          <a class="burger-tab" href="/Graphiques.html">Graphiques</a>
+          <span class="burger-tab active">Porte Monnaie</span>
+          <a class="burger-tab" href="/APropos.html">A propos</a>
+      </nav>
+      <div v-if="!isConnected()">
+        <form @submit.prevent="sendCredentials">
+          <p>
+            <label for="username">
+              Username
+            </label>
+            <input
+              id="username"
+              v-model="username"
+              type="text"
+              placeholder="Username"
+            >
+          </p>
+          <p>
+            <label for="password">
+              Password
+            </label>
+            <input
+              id="password"
+              v-model="password"
+              type="password"
+              required
+              placeholder="Password"
+            >
+          </p>
+          <button type="submit">
+            Se connecter
+          </button>
+        </form>
+        <div>
+          <p>
+            Username :
+            {{ username }}
+          </p>
+          <p>
+            Password :
+            {{ password }}
+          </p>
+        </div>
+      </div>
+      <div v-if="isConnected()">
+        <h1>VOUS ETES CONNECTE</h1>
+      </div>
     </main>
 </body>
 </html>
@@ -26,7 +69,43 @@
 
 <script>
 export default {
-  name: 'Comprendre'
+  name: 'porte_monnaie',
+
+  data () {
+    return {
+      username: undefined,
+      password: undefined
+    }
+  },
+  methods: {
+    sendCredentials () {
+      const login = this.username
+      const password = this.password
+      fetch('/api/v1/auth/token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          login,
+          password
+        })
+      })
+        .then(res => res.json())
+        .then(({ success, token, message }) => {
+          localStorage.setItem('token', token)
+        })
+        .catch(error => { this.error = error })
+    },
+
+    isConnected () {
+      const token = localStorage.getItem('token')
+      if (token) {
+        return true
+      }
+      return false
+    }
+  }
 }
 </script>
 

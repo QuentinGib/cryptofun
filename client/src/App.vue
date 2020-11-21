@@ -2,9 +2,9 @@
   <div>
     <div class="main-header">
       <header class="main-header-title">
-          <H1><a class= toplink href="/index.html">
+          <h1><a class= toplink href="/index.html">
               CRYPTO FUN
-             </a></H1>
+             </a></h1>
       </header>
       <div class="main-nav" id="mainnav">
         <router-link tag="li" class="main-tab" to="/" >Home</router-link>
@@ -19,7 +19,17 @@
 </template>
 
 <script>
-
+export default {
+  name: 'App',
+  data () {
+    return {
+      token: false
+    }
+  },
+  mounted () {
+    this.token = localStorage.getItem('token')
+  }
+}
 </script>
 
 <style>
