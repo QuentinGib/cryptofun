@@ -24,7 +24,7 @@
                 <img class="imgBlockchain" src="../images/blockchain_icon.png" alt="image Blockchain">
                 <figcapton>Blockchain </figcapton>
             </router-link>
-            <router-link class="cours_droite" to="/cours/cryptos">
+            <router-link class="cours_droite" to="/cours/cryptomonnaies">
                 <img class="imgCryptocurrency" src="../images/cryptocurrency.png" alt="image Cryptocurrency">
                 <figcaption>Cryptomonnaies</figcaption>
             </router-link>

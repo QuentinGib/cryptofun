@@ -28,14 +28,12 @@ const routes = [
   {
     path: '/porte_monnaie',
     name: 'porte_monnaie',
-    component: PorteMonnaie,
-    children: [
-      {
-        path: 'wallet',
-        name: 'wallet',
-        component: Wallet
-      }
-    ]
+    component: PorteMonnaie
+  },
+  {
+    path: '/wallet',
+    name: 'wallet',
+    component: Wallet
   },
   {
     path: '/a_propos',
@@ -53,8 +51,8 @@ const routes = [
         component: Blockchain
       },
       {
-        path: 'cryptos',
-        name: 'cryptos',
+        path: 'cryptomonnaies',
+        name: 'cryptomonnaies',
         compononent: Cryptomonnaies
       }
     ]

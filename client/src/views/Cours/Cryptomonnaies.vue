@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: 'Cryptos'
+  name: 'cryptomonnaies'
 }
 </script>
 

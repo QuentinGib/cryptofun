@@ -1,10 +1,175 @@
 <template>
-  <title>PORTE MONNAIE</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Porte Monnaie</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main>
+      <nav class="burger-nav" id=burgernav>
+          <a class="burger-tab" href="/index.html">Accueil</a>
+          <a class="burger-tab" href="/Comprendre.html">Comprendre</a>
+          <a class="burger-tab" href="/Graphiques.html">Graphiques</a>
+          <span class="burger-tab active">Porte Monnaie</span>
+          <a class="burger-tab" href="/APropos.html">A propos</a>
+      </nav>
+      <div class="block1">
+        <div class="somme-totale">
+          <h2>Valeur totale</h2>
+          <p>{{sommeTotale}}$</p>
+        </div>
+        <div>
+          <h2>Monnaie disponible</h2>
+          <p>{{ holdingDolls }}$</p>
+        </div>
+      </div>
+      <div>
+        <h2>Cryptos disponibles</h2>
+        <ul>
+          <li v-for="hold in holdings.filter(crypto => crypto.somme > 0)" :key="hold.id">
+            <p>{{ hold.name }}</p>
+            <p>{{ hold.somme }}</p>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Trading :</h2>
+        <ul>
+          <li v-for="currency in holdings" :key="currency.id">
+            <p>{{currency.name}}</p>
+            <p>{{currency.somme}} {{currency.symbol}}</p>
+          </li>
+          <form @submit.prevent="acheter">
+            <select v-model="cryptoSelected">
+              <option v-for="currency in currencies.slice(0, 11)" v-bind:key="currency.id">
+                {{ currency.name }}
+              </option>
+            </select>
+            <p>
+              <label for="achat">
+                pour un montant de $
+              </label>
+              <input
+                id="achat"
+                v-model.number="achat"
+                type="number"
+              >
+            </p>
+            <button type="submit">Acheter</button>
+          </form>
+          <form @submit.prevent="vendre">
+            <select v-model="cryptoSelected">
+              <option v-for="currency in holdings.filter(crypto => crypto.somme > 0)" v-bind:key="currency.id">
+                {{ currency.name }}
+              </option>
+            </select>
+            <p>
+              <label for="vente">
+                pour un montant de $
+              </label>
+              <input
+                id="vente"
+                v-model.number="vente"
+                type="number"
+              >
+            </p>
+            <button type="submit">Vendre</button>
+          </form>
+        </ul>
+      </div>
+    </main>
+</body>
+</html>
 </template>
 
 <script>
 export default {
+  name: 'Wallet',
 
+  data () {
+    return {
+      login: '',
+      sommeTotale: 0,
+      currencies: [],
+      holdings: [],
+      holdingDolls: 0
+    }
+  },
+
+  mounted () {
+    this.login = JSON.parse(localStorage.getItem('Login'))
+    this.holdingDolls = JSON.parse(localStorage.getItem('HoldingDollsOf' + this.login)) || 1000
+    // const token = localStorage.getItem('token')
+    // Fetch de currencies
+    // fetch('/api/v1/compte/cryptoTrade', {
+    //   headers: {
+    //     Authorization: 'Bearer ' + token
+    //   }
+    // })
+    fetch('/api/v1/compte/cryptoTrade')
+      .then(res => res.json())
+      .then(({ currencies }) => {
+        this.currencies = currencies
+      })
+      .catch(error => { this.error = error })
+
+    this.holdings = JSON.parse(localStorage.getItem('holdingsOf' + this.login)) ||
+    fetch('/api/v1/compte/holdings')
+      .then(res => res.json())
+      .then(({ currencies }) => {
+        this.holdings = currencies
+      })
+      .catch(error => { this.error = error })
+
+    console.log(this.currencies.slice(0, 11))
+    console.log(this.currencies.slice(0, 11).map(currency => ({
+      id: currency.id,
+      symbol: currency.symbol,
+      name: currency.name,
+      somme: 0
+    })))
+
+    this.sommeTotale = this.holdingDolls
+    for (const cryptoHolded in this.holdings) {
+      this.sommeTotale += cryptoHolded.somme * this.currencies.filter(x => x.id === cryptoHolded.id).price
+    }
+  },
+
+  methods: {
+    acheter () {
+      if (this.holdingDolls >= this.achat) {
+        const cryptoPrice = this.currencies.filter(crypto => crypto.id === this.cryptoSelected).price
+        this.holdings.filter(choixCrypto => choixCrypto.id === this.cryptoSelected)
+          .somme += this.achat / cryptoPrice
+        this.holdingDolls -= this.achat
+        localStorage.setItem('holdingsOf' + this.login, JSON.stringify(this.holdings))
+        localStorage.setItem('HoldingDollsOf' + this.login, JSON.stringify(this.holdingDolls))
+      } else {
+        // erreur
+      }
+    },
+
+    vendre () {
+      const cryptoPrice = this.currencies.filter(crypto => crypto.id === this.cryptoSelected).price
+      const possessionEnCrypto = this.holdings.filter(choixCrypto => choixCrypto.id === this.cryptoSelected).somme
+      const venteEnCrypto = this.vente / cryptoPrice
+      if (venteEnCrypto <= possessionEnCrypto) {
+        this.holdings.filter(choixCrypto => choixCrypto.id === this.cryptoSelected)
+          .somme -= venteEnCrypto
+        this.holdingDolls += this.vente
+        localStorage.setItem('holdingsOf' + this.login, JSON.stringify(this.holdings))
+        localStorage.setItem('HoldingDollsOf' + this.login, JSON.stringify(this.holdingDolls))
+      } else {
+        // erreur
+      }
+    }
+  }
 }
 </script>
 

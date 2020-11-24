@@ -58,16 +58,44 @@ router.get('/', function getRoot(req, res) {
     })
 })
 
-router.get('/:currencyslug', function getRoot(req, res) {
-    const crypto = req.params.currencyslug
+router.get('/cryptoTrade', function getRoot(req, res) {
 
-    const path = '/cryptocurrency/info?slug=' + crypto
+    const path = '/cryptocurrency/listings/latest'
 
     fetchCMC(path)
-    .then(crypto => {
+    .then(currencies => {
         res.json({
             success: true,
-            crypto
+            currencies: currencies.map(currency => ({
+                id: currency.id,
+                name: currency.name,
+                symbol: currency.symbol,
+                price: currency.quote.USD.price
+            })),
+        })
+    })
+    .catch(error => {
+        res.json({
+            success: false,
+            message: error.message
+        })
+    })
+})
+
+router.get('/holdings', function getRoot(req, res) {
+
+    const path = '/cryptocurrency/listings/latest'
+
+    fetchCMC(path)
+    .then(currencies => {
+        res.json({
+            success: true,
+            currencies: currencies.slice(0, 11).map(currency => ({
+                id: currency.id,
+                symbol: currency.symbol,
+                name: currency.name,
+                somme: 0
+            })),
         })
     })
     .catch(error => {

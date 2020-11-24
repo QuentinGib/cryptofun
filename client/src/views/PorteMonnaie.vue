@@ -94,6 +94,7 @@ export default {
         .then(res => res.json())
         .then(({ success, token, message }) => {
           localStorage.setItem('token', token)
+          localStorage.setItem('login', login)
         })
         .catch(error => { this.error = error })
     },

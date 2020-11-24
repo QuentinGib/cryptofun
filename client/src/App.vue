@@ -33,5 +33,8 @@ export default {
 </script>
 
 <style>
+#mainnav a.router-link-exact-active {
+  color: #BDBDBD;
+}
   @import '../src/css/main.css'
 </style>

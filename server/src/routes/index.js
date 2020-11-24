@@ -12,6 +12,6 @@ router.use('/auth', authRoutes)
 
 router.use('/currencies', currenciesRoutes)
 
-router.use('/compte', verifyToken, currenciesRoutes)
+router.use('/compte', /*verifyToken,*/ currenciesRoutes)
 
 module.exports = router
