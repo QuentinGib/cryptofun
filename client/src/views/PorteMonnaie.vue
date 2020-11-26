@@ -12,15 +12,6 @@
 </head>
 <body>
     <main>
-<<<<<<< Updated upstream
-        <nav class="burger-nav" id=burgernav>
-            <a class="burger-tab" href="/index.html">Accueil</a>
-            <a class="burger-tab" href="/Comprendre.html">Comprendre</a>
-            <a class="burger-tab" href="/Graphiques.html">Graphiques</a>
-            <span class="burger-tab active">Porte Monnaie</span>
-            <a class="burger-tab" href="/APropos.html">A propos</a>
-        </nav>
-=======
       <div v-if="!isConnected()">
         <form @submit.prevent="sendCredentials">
           <p>

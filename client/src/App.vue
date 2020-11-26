@@ -2,14 +2,8 @@
   <div>
     <div class="main-header">
       <header class="main-header-title">
-<<<<<<< Updated upstream
-          <H1><a class= toplink href="/index.html">
-              CRYPTO FUN
-             </a></H1>
-=======
           <h1><router-link class="toplink" to="/" >CRYPTO FUN</router-link></h1>
              <div class="burger"></div>
->>>>>>> Stashed changes
       </header>
       <div class="main-nav" id="mainnav">
         <router-link class="main-tab" to="/">Home</router-link>
@@ -31,9 +25,6 @@
 </template>
 
 <script>
-<<<<<<< Updated upstream
-
-=======
 export default {
   name: 'App',
   data () {
@@ -51,7 +42,6 @@ export default {
     this.token = localStorage.getItem('token')
   }
 }
->>>>>>> Stashed changes
 </script>
 
 <style>
