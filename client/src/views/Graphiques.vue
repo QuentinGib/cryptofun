@@ -12,13 +12,6 @@
 </head>
 <body>
     <main>
-        <nav class="burger-nav" id=burgernav>
-            <a class="burger-tab" href="/index.html">Accueil</a>
-            <a class="burger-tab" href="/Comprendre.html">Comprendre</a>
-            <span class="burger-tab active">Graphiques</span>
-            <a class="burger-tab" href="/PorteMonnaie.html">Porte Monnaie</a>
-            <a class="burger-tab" href="/APropos.html">A propos</a>
-        </nav>
     </main>
 </body>
 </html>

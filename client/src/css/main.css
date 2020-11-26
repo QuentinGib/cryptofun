@@ -138,8 +138,10 @@ h3 {
 @media only screen and (max-device-width: 1024px) {
     
     .burger{
-        width: 30px;
+      width: 30px;
       height: 4px;
+      position: absolute;
+      right: 5%;
       background: #000000;
       border-radius: 5px;
       box-shadow: 0 2px 5px rgba(255,101,47,.2);

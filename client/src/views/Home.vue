@@ -12,13 +12,6 @@
 </head>
 <body>
     <main>
-        <nav class="burger-nav" id=burgernav>
-            <span class="burger-tab active">Accueil</span>
-            <a class="burger-tab" href="/Comprendre.html">Comprendre</a>
-            <a class="burger-tab" href="/Graphiques.html">Graphiques</a>
-            <a class="burger-tab" href="/PorteMonnaie.html">Porte Monnaie</a>
-            <a class="burger-tab" href="/APropos.html">A propos</a>
-        </nav>
         <header class="titre-page">
             <h2>ENTREZ DANS LE MONDE DE LA CRYPTO</h2>
         </header>

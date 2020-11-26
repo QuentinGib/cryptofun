@@ -12,13 +12,6 @@
 </head>
 <body>
     <main>
-        <nav class="burger-nav" id=burgernav>
-            <a class="burger-tab active" href="/index.html">Accueil</a>
-            <span class="burger-tab active">Comprendre</span>
-            <a class="burger-tab" href="/Graphiques.html">Graphiques</a>
-            <a class="burger-tab" href="/PorteMonnaie.html">Porte Monnaie</a>
-            <a class="burger-tab" href="/APropos.html">A propos</a>
-        </nav>
         <div class="cours">
             <router-link class="cours_gauche" to="/cours/blockchain">
                 <img class="imgBlockchain" src="../images/blockchain_icon.png" alt="image Blockchain">
