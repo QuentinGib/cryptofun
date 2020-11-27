@@ -55,7 +55,6 @@
       <div v-if="isConnected()">
         <h1>VOUS ETES CONNECTE</h1>
       </div>
->>>>>>> Stashed changes
     </main>
 </body>
 </html>
@@ -63,7 +62,42 @@
 
 <script>
 export default {
-  name: 'Comprendre'
+  name: 'porte_monnaie',
+  data () {
+    return {
+      username: undefined,
+      password: undefined
+    }
+  },
+  methods: {
+    sendCredentials () {
+      const login = this.username
+      const password = this.password
+      fetch('/api/v1/auth/token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          login,
+          password
+        })
+      })
+        .then(res => res.json())
+        .then(({ success, token, message }) => {
+          localStorage.setItem('token', token)
+          localStorage.setItem('login', login)
+        })
+        .catch(error => { this.error = error })
+    },
+    isConnected () {
+      const token = localStorage.getItem('token')
+      if (token) {
+        return true
+      }
+      return false
+    }
+  }
 }
 </script>
 
