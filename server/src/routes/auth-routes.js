@@ -3,7 +3,7 @@ const express = require('express')
 const tokenUtils = require('../utils/token-utils.js')
 
 const router = new express.Router()
-
+const dotenv= require('dotenv')
 router.post('/token', (req, res) => {
     const authorizedLogin = process.env.AUTHORIZED_LOGIN
     const authorizedPasswd = process.env.AUTHORIZED_PASSWD

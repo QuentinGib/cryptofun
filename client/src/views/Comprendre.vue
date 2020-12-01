@@ -22,10 +22,10 @@
         <div class="cours">
             <router-link class="cours_gauche" to="/cours/blockchain">
                 <img class="imgBlockchain" src="../images/blockchain_icon.png" alt="image Blockchain">
-                <figcapton>Blockchain </figcapton>
+                <figcaption>Blockchain</figcaption>
             </router-link>
-            <router-link class="cours_droite" to="/cours/cryptomonnaies">
-                <img class="imgCryptocurrency" src="../images/cryptocurrency.png" alt="image Cryptocurrency">
+            <router-link class="cours_droite" to="/cours/crypto">
+                <img class="imgCryptocurrency" src="../images/cryptocurrency.png" alt="image Currency">
                 <figcaption>Cryptomonnaies</figcaption>
             </router-link>
         </div>

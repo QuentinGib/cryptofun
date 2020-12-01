@@ -6,7 +6,7 @@ import PorteMonnaie from '@/views/PorteMonnaie.vue'
 import APropos from '@/views/APropos.vue'
 import Cours from '@/views/Cours.vue'
 import Blockchain from '@/views/Cours/Blockchain.vue'
-import Cryptomonnaies from '@/views/Cours/Cryptomonnaies.vue'
+import Crypto from '@/views/Cours/Crypto.vue'
 import Wallet from '@/views/Wallet.vue'
 
 const routes = [
@@ -51,9 +51,9 @@ const routes = [
         component: Blockchain
       },
       {
-        path: 'cryptomonnaies',
-        name: 'cryptomonnaies',
-        compononent: Cryptomonnaies
+        path: 'crypto',
+        name: 'crypto',
+        component: Crypto
       }
     ]
   }
