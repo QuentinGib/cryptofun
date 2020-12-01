@@ -12,13 +12,6 @@
 </head>
 <body>
     <main>
-      <nav class="burger-nav" id=burgernav>
-          <a class="burger-tab" href="/index.html">Accueil</a>
-          <a class="burger-tab" href="/Comprendre.html">Comprendre</a>
-          <a class="burger-tab" href="/Graphiques.html">Graphiques</a>
-          <span class="burger-tab active">Porte Monnaie</span>
-          <a class="burger-tab" href="/APropos.html">A propos</a>
-      </nav>
       <div class="block1">
         <div class="somme-totale">
           <h2>Valeur totale</h2>
@@ -65,7 +58,7 @@
           </form>
           <form @submit.prevent="vendre">
             <select v-model="cryptoSelected">
-              <option v-for="currency in holdings.filter(crypto => crypto.somme > 0)" v-bind:key="currency.id">
+              <option v-for="currency in holdings.filter(crypto => crypto.somme > 0)" v-bind:key="currency.id" >
                 {{ currency.name }}
               </option>
             </select>
@@ -134,19 +127,16 @@ export default {
       name: currency.name,
       somme: 0
     })))
-
     this.sommeTotale = this.holdingDolls
     for (const cryptoHolded in this.holdings) {
-      this.sommeTotale += cryptoHolded.somme * this.currencies.filter(x => x.id === cryptoHolded.id).price
+      this.sommeTotale += this.holdings[cryptoHolded].somme * this.currencies.filter(x => x.id === this.holdings[cryptoHolded].id).price
     }
   },
 
   methods: {
     acheter () {
       if (this.holdingDolls >= this.achat) {
-        const cryptoPrice = this.currencies.filter(crypto => crypto.id === this.cryptoSelected).price
-        this.holdings.filter(choixCrypto => choixCrypto.id === this.cryptoSelected)
-          .somme += this.achat / cryptoPrice
+        this.holdings[this.holdings.indexOf(this.holdings.filter(crypto => crypto.name === this.cryptoSelected).pop())].somme += this.achat / (this.currencies.filter(crypto => crypto.name === this.cryptoSelected).pop()).price
         this.holdingDolls -= this.achat
         localStorage.setItem('holdingsOf' + this.login, JSON.stringify(this.holdings))
         localStorage.setItem('HoldingDollsOf' + this.login, JSON.stringify(this.holdingDolls))
@@ -156,12 +146,11 @@ export default {
     },
 
     vendre () {
-      const cryptoPrice = this.currencies.filter(crypto => crypto.id === this.cryptoSelected).price
-      const possessionEnCrypto = this.holdings.filter(choixCrypto => choixCrypto.id === this.cryptoSelected).somme
-      const venteEnCrypto = this.vente / cryptoPrice
+      const possessionEnCrypto = (this.holdings.filter(choixCrypto => choixCrypto.name === this.cryptoSelected).pop()).somme
+      console.log(possessionEnCrypto)
+      const venteEnCrypto = this.vente / (this.currencies.filter(crypto => crypto.name === this.cryptoSelected).pop()).price
       if (venteEnCrypto <= possessionEnCrypto) {
-        this.holdings.filter(choixCrypto => choixCrypto.id === this.cryptoSelected)
-          .somme -= venteEnCrypto
+        this.holdings[this.holdings.indexOf(this.holdings.filter(crypto => crypto.name === this.cryptoSelected).pop())].somme -= venteEnCrypto
         this.holdingDolls += this.vente
         localStorage.setItem('holdingsOf' + this.login, JSON.stringify(this.holdings))
         localStorage.setItem('HoldingDollsOf' + this.login, JSON.stringify(this.holdingDolls))
