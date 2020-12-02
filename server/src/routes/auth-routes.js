@@ -9,7 +9,7 @@ router.post('/token', (req, res) => {
     const authorizedPasswd = process.env.AUTHORIZED_PASSWD
 
     const body = req.body
-
+    
     if (!body || !body.login || !body.password) {
         res.json({
             success: false,
@@ -30,12 +30,11 @@ router.post('/token', (req, res) => {
         login: body.login,
     }
 
-    const token = tokenUtils.sign(payload)
-
+    const token = tokenUtils.createToken(payload)
     res.json({
         success: true,
         token
+    })    
     })
-})
 
 module.exports = router

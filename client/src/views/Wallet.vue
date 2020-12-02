@@ -108,10 +108,13 @@ export default {
     fetch('/api/v1/compte/cryptoTrade')
       .then(res => res.json())
       .then(({ currencies }) => {
-        this.currencies = currencies
+        this.currencies = currencies.slice(0, 11)
+        localStorage.removeItem('prices')
+        localStorage.setItem('prices', JSON.stringify(this.currencies))
+        console.log(this.currencies)
       })
       .catch(error => { this.error = error })
-
+    console.log(this.currencies + 'é')
     this.holdings = JSON.parse(localStorage.getItem('holdingsOf' + this.login)) ||
     fetch('/api/v1/compte/holdings')
       .then(res => res.json())
@@ -119,23 +122,21 @@ export default {
         this.holdings = currencies
       })
       .catch(error => { this.error = error })
-
-    console.log(this.currencies.slice(0, 11))
-    console.log(this.currencies.slice(0, 11).map(currency => ({
-      id: currency.id,
-      symbol: currency.symbol,
-      name: currency.name,
-      somme: 0
-    })))
     this.sommeTotale = this.holdingDolls
+    this.currencies = JSON.parse(localStorage.getItem('prices'))
     for (const cryptoHolded in this.holdings) {
+      console.log(cryptoHolded)
       this.sommeTotale += this.holdings[cryptoHolded].somme * this.currencies.filter(x => x.id === this.holdings[cryptoHolded].id).price
     }
   },
 
   methods: {
     acheter () {
+      this.currencies = JSON.parse(localStorage.getItem('prices'))
+      console.log(this.currencies)
       if (this.holdingDolls >= this.achat) {
+        var a = (this.currencies.filter(crypto => crypto.name === this.cryptoSelected).pop())
+        console.log(a)
         this.holdings[this.holdings.indexOf(this.holdings.filter(crypto => crypto.name === this.cryptoSelected).pop())].somme += this.achat / (this.currencies.filter(crypto => crypto.name === this.cryptoSelected).pop()).price
         this.holdingDolls -= this.achat
         localStorage.setItem('holdingsOf' + this.login, JSON.stringify(this.holdings))
