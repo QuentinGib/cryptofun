@@ -124,9 +124,9 @@ export default {
       .catch(error => { this.error = error })
     this.sommeTotale = this.holdingDolls
     this.currencies = JSON.parse(localStorage.getItem('prices'))
+    console.log(this.holdings)
     for (const cryptoHolded in this.holdings) {
-      console.log(cryptoHolded)
-      this.sommeTotale += this.holdings[cryptoHolded].somme * this.currencies.filter(x => x.id === this.holdings[cryptoHolded].id).price
+      this.sommeTotale += this.holdings[cryptoHolded].somme * (this.currencies.filter(x => x.id === this.holdings[cryptoHolded].id).pop()).price
     }
   },
 
