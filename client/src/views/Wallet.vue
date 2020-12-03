@@ -11,70 +11,68 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
 </head>
 <body>
-    <main>
-      <div class="block1">
-        <div class="somme-totale">
+    <main class="wallet-main">
+      <div class="wallet-block1">
+        <div class="wallet-sommeTotale">
           <h2>Valeur totale</h2>
           <p>{{sommeTotale}}$</p>
         </div>
-        <div>
+        <div class="wallet-monnaieDispo">
           <h2>Monnaie disponible</h2>
           <p>{{ holdingDolls }}$</p>
         </div>
       </div>
-      <div>
-        <h2>Cryptos disponibles</h2>
-        <ul>
-          <li v-for="hold in holdings.filter(crypto => crypto.somme > 0)" :key="hold.id">
-            <p>{{ hold.name }}</p>
-            <p>{{ hold.somme }}</p>
-          </li>
-        </ul>
-      </div>
-      <div>
-        <h2>Trading :</h2>
-        <ul>
-          <li v-for="currency in holdings" :key="currency.id">
-            <p>{{currency.name}}</p>
-            <p>{{currency.somme}} {{currency.symbol}}</p>
-          </li>
-          <form @submit.prevent="acheter">
-            <select v-model="cryptoSelected">
-              <option v-for="currency in currencies.slice(0, 11)" v-bind:key="currency.id">
-                {{ currency.name }}
-              </option>
-            </select>
-            <p>
-              <label for="achat">
-                pour un montant de $
-              </label>
-              <input
-                id="achat"
-                v-model.number="achat"
-                type="number"
-              >
-            </p>
-            <button type="submit">Acheter</button>
-          </form>
-          <form @submit.prevent="vendre">
-            <select v-model="cryptoSelected">
-              <option v-for="currency in holdings.filter(crypto => crypto.somme > 0)" v-bind:key="currency.id" >
-                {{ currency.name }}
-              </option>
-            </select>
-            <p>
-              <label for="vente">
-                pour un montant de $
-              </label>
-              <input
-                id="vente"
-                v-model.number="vente"
-                type="number"
-              >
-            </p>
-            <button type="submit">Vendre</button>
-          </form>
-        </ul>
+      <div class="wallet-block2">
+        <div class="wallet-cryptoDispo">
+          <h2>Cryptos disponibles</h2>
+          <ul>
+            <li v-for="hold in holdings.filter(crypto => crypto.somme > 0)" :key="hold.id">
+              <p>{{ hold.name }}</p>
+              <p>{{ hold.somme }}</p>
+            </li>
+          </ul>
+        </div>
+        <div class="wallet-AchatRevente">
+          <h2>Trading :</h2>
+          <ul>
+            <form @submit.prevent="acheter">
+              <select v-model="cryptoSelected">
+                <option v-for="currency in currencies.slice(0, 11)" v-bind:key="currency.id">
+                  {{ currency.name }}
+                </option>
+              </select>
+              <p>
+                <label for="achat">
+                  pour un montant de $
+                </label>
+                <input
+                  id="achat"
+                  v-model.number="achat"
+                  type="number"
+                >
+              </p>
+              <button type="submit">Acheter</button>
+            </form>
+            <form @submit.prevent="vendre">
+              <select v-model="cryptoSelected">
+                <option v-for="currency in holdings.filter(crypto => crypto.somme > 0)" v-bind:key="currency.id" >
+                  {{ currency.name }}
+                </option>
+              </select>
+              <p>
+                <label for="vente">
+                  pour un montant de $
+                </label>
+                <input
+                  id="vente"
+                  v-model.number="vente"
+                  type="number"
+                >
+              </p>
+              <button type="submit">Vendre</button>
+            </form>
+          </ul>
+        </div>
       </div>
     </main>
 </body>

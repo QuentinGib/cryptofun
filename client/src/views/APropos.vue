@@ -12,6 +12,13 @@
 </head>
 <body>
     <main>
+      <div>
+        <p>
+          Quentin GIBON et Lucas LEVY sont les créateurs de ce site, idée qui leur est venue,
+          fraichement diplomé d'un double cursus Polytechnique / MIT. <br>
+          Allez faire un tour sur notre site secondaire : <a href="https://www.amazon.fr/">Petit projet sans prétentions</a> !
+        </p>
+      </div>
     </main>
 </body>
 </html>
