@@ -40,14 +40,6 @@
             Se connecter
           </button>
         </form>
-        <div>
-          <p>
-            Username :
-            {{ username }}
-          </p>
-          <p>
-          </p>
-        </div>
       </div>
       <div v-if="isConnected()">
         <h1>VOUS ETES CONNECTE</h1>

@@ -26,7 +26,7 @@
         <div class="wallet-cryptoDispo">
           <h2>Cryptos disponibles</h2>
           <ul>
-            <li v-for="hold in holdings.filter(crypto => crypto.somme > 0)" :key="hold.id">
+            <li v-for="hold in holdingsNotNull" :key="hold.id">
               <p>{{ hold.name }}</p>
               <p>{{ hold.somme }}</p>
             </li>
@@ -59,7 +59,7 @@
             </form>
             <form @submit.prevent="vendre">
               <select v-model="cryptoSelected">
-                <option v-for="currency in holdings.filter(crypto => crypto.somme > 0)" v-bind:key="currency.id" >
+                <option v-for="currency in holdingsNotNull" v-bind:key="currency.id" >
                   {{ currency.name }}
                 </option>
               </select>
@@ -92,6 +92,7 @@ export default {
       achat: 0,
       vente: 0,
       login: '',
+      holdingsNotNull: [],
       sommeTotale: 0,
       currencies: [],
       holdings: [],
@@ -129,9 +130,8 @@ export default {
     })
       .then(res => res.json())
       .then(({ currencies }) => {
-        this.holdings = currencies
+        this.holdingsNotNull = this.holdings.filter(crypto => crypto.somme > 0)
         let sum = +this.holdingDolls
-        console.log(this.holdingDolls)
         for (const cryptoHolded of this.holdings) {
           sum += this.currencies.find(x => x.id === cryptoHolded.id).price * cryptoHolded.somme
         }
@@ -143,12 +143,12 @@ export default {
   methods: {
     acheter () {
       this.currencies = JSON.parse(localStorage.getItem('prices'))
-      console.log(this.currencies)
       if (this.holdingDolls >= this.achat) {
         this.holdings[this.holdings.indexOf(this.holdings.find(crypto => crypto.name === this.cryptoSelected))].somme += this.achat / this.currencies.find(crypto => crypto.name === this.cryptoSelected).price
         this.holdingDolls -= this.achat
         localStorage.setItem('holdingsOf' + this.login, JSON.stringify(this.holdings))
         localStorage.setItem('HoldingDollsOf' + this.login, JSON.stringify(this.holdingDolls))
+        window.location.reload()
       } else {
         // erreur
       }
@@ -156,13 +156,13 @@ export default {
 
     vendre () {
       const possessionEnCrypto = this.holdings.find(choixCrypto => choixCrypto.name === this.cryptoSelected).somme
-      console.log(possessionEnCrypto)
       const venteEnCrypto = this.vente / this.currencies.find(crypto => crypto.name === this.cryptoSelected).price
       if (venteEnCrypto <= possessionEnCrypto) {
         this.holdings[this.holdings.indexOf(this.holdings.find(crypto => crypto.name === this.cryptoSelected))].somme -= venteEnCrypto
         this.holdingDolls += this.vente
         localStorage.setItem('holdingsOf' + this.login, JSON.stringify(this.holdings))
         localStorage.setItem('HoldingDollsOf' + this.login, JSON.stringify(this.holdingDolls))
+        window.location.reload()
       } else {
         // erreur
       }
