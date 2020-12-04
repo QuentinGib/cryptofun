@@ -130,9 +130,10 @@ export default {
       .then(res => res.json())
       .then(({ currencies }) => {
         this.holdings = currencies
-        let sum = this.holdingDolls
+        let sum = +this.holdingDolls
+        console.log(this.holdingDolls)
         for (const cryptoHolded of this.holdings) {
-          sum += cryptoHolded.somme * this.currencies.find(x => x.id === cryptoHolded.id).price
+          sum += this.currencies.find(x => x.id === cryptoHolded.id).price * cryptoHolded.somme
         }
         this.sommeTotale = sum
       })
@@ -144,9 +145,7 @@ export default {
       this.currencies = JSON.parse(localStorage.getItem('prices'))
       console.log(this.currencies)
       if (this.holdingDolls >= this.achat) {
-        var a = (this.currencies.filter(crypto => crypto.name === this.cryptoSelected).pop())
-        console.log(a)
-        this.holdings[this.holdings.indexOf(this.holdings.filter(crypto => crypto.name === this.cryptoSelected).pop())].somme += this.achat / (this.currencies.filter(crypto => crypto.name === this.cryptoSelected).pop()).price
+        this.holdings[this.holdings.indexOf(this.holdings.find(crypto => crypto.name === this.cryptoSelected))].somme += this.achat / this.currencies.find(crypto => crypto.name === this.cryptoSelected).price
         this.holdingDolls -= this.achat
         localStorage.setItem('holdingsOf' + this.login, JSON.stringify(this.holdings))
         localStorage.setItem('HoldingDollsOf' + this.login, JSON.stringify(this.holdingDolls))
@@ -156,11 +155,11 @@ export default {
     },
 
     vendre () {
-      const possessionEnCrypto = (this.holdings.filter(choixCrypto => choixCrypto.name === this.cryptoSelected).pop()).somme
+      const possessionEnCrypto = this.holdings.find(choixCrypto => choixCrypto.name === this.cryptoSelected).somme
       console.log(possessionEnCrypto)
-      const venteEnCrypto = this.vente / (this.currencies.filter(crypto => crypto.name === this.cryptoSelected).pop()).price
+      const venteEnCrypto = this.vente / this.currencies.find(crypto => crypto.name === this.cryptoSelected).price
       if (venteEnCrypto <= possessionEnCrypto) {
-        this.holdings[this.holdings.indexOf(this.holdings.filter(crypto => crypto.name === this.cryptoSelected).pop())].somme -= venteEnCrypto
+        this.holdings[this.holdings.indexOf(this.holdings.find(crypto => crypto.name === this.cryptoSelected))].somme -= venteEnCrypto
         this.holdingDolls += this.vente
         localStorage.setItem('holdingsOf' + this.login, JSON.stringify(this.holdings))
         localStorage.setItem('HoldingDollsOf' + this.login, JSON.stringify(this.holdingDolls))
