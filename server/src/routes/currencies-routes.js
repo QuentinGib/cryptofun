@@ -1,5 +1,7 @@
 const express = require('express')
 
+const verifyToken = require('../middlewares/verify-token')
+
 const router = new express.Router()
 
 const apiBaseUrl = 'https://pro-api.coinmarketcap.com/v1'
@@ -58,7 +60,7 @@ router.get('/', function getRoot(req, res) {
     })
 })
 
-router.get('/cryptoTrade', function getRoot(req, res) {
+router.get('/cryptoTrade', verifyToken, function getRoot(req, res) {
 
     const path = '/cryptocurrency/listings/latest'
 
@@ -82,7 +84,7 @@ router.get('/cryptoTrade', function getRoot(req, res) {
     })
 })
 
-router.get('/holdings', function getRoot(req, res) {
+router.get('/holdings', verifyToken, function getRoot(req, res) {
 
     const path = '/cryptocurrency/listings/latest'
 

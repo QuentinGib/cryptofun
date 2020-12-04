@@ -37,7 +37,11 @@
           <ul>
             <form @submit.prevent="acheter">
               <select v-model="cryptoSelected">
-                <option v-for="currency in currencies.slice(0, 11)" v-bind:key="currency.id">
+                <option
+                  v-for="(currency, idx) in currencies"
+                  v-bind:key="currency.id + idx"
+                  :value="currency.name"
+                >
                   {{ currency.name }}
                 </option>
               </select>
@@ -85,47 +89,54 @@ export default {
 
   data () {
     return {
+      achat: 0,
+      vente: 0,
       login: '',
       sommeTotale: 0,
       currencies: [],
       holdings: [],
-      holdingDolls: 0
+      holdingDolls: 0,
+      cryptoSelected: ''
     }
   },
 
   mounted () {
-    this.login = JSON.parse(localStorage.getItem('Login'))
-    this.holdingDolls = JSON.parse(localStorage.getItem('HoldingDollsOf' + this.login)) || 1000
-    // const token = localStorage.getItem('token')
-    // Fetch de currencies
-    // fetch('/api/v1/compte/cryptoTrade', {
-    //   headers: {
-    //     Authorization: 'Bearer ' + token
-    //   }
-    // })
-    fetch('/api/v1/compte/cryptoTrade')
+    const token = localStorage.getItem('token')
+    this.login = localStorage.getItem('login')
+    this.holdingDolls = localStorage.getItem('HoldingDollsOf' + this.login) || 1000
+    this.sommeTotale = this.holdingDolls
+    this.currencies = JSON.parse(localStorage.getItem('prices'))
+    this.holdings = JSON.parse(localStorage.getItem('holdingsOf' + this.login))
+
+    fetch('/api/v1/compte/cryptoTrade', {
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    })
       .then(res => res.json())
       .then(({ currencies }) => {
         this.currencies = currencies.slice(0, 11)
+        this.cryptoSelected = this.currencies[0].name
         localStorage.removeItem('prices')
         localStorage.setItem('prices', JSON.stringify(this.currencies))
-        console.log(this.currencies)
       })
       .catch(error => { this.error = error })
-    console.log(this.currencies + 'é')
-    this.holdings = JSON.parse(localStorage.getItem('holdingsOf' + this.login)) ||
-    fetch('/api/v1/compte/holdings')
+
+    fetch('/api/v1/compte/holdings', {
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    })
       .then(res => res.json())
       .then(({ currencies }) => {
         this.holdings = currencies
+        let sum = this.holdingDolls
+        for (const cryptoHolded of this.holdings) {
+          sum += cryptoHolded.somme * this.currencies.find(x => x.id === cryptoHolded.id).price
+        }
+        this.sommeTotale = sum
       })
       .catch(error => { this.error = error })
-    this.sommeTotale = this.holdingDolls
-    this.currencies = JSON.parse(localStorage.getItem('prices'))
-    console.log(this.holdings)
-    for (const cryptoHolded in this.holdings) {
-      this.sommeTotale += this.holdings[cryptoHolded].somme * (this.currencies.filter(x => x.id === this.holdings[cryptoHolded].id).pop()).price
-    }
   },
 
   methods: {

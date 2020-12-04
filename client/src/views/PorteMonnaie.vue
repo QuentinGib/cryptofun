@@ -46,8 +46,6 @@
             {{ username }}
           </p>
           <p>
-            Password :
-            {{ password }}
           </p>
         </div>
       </div>

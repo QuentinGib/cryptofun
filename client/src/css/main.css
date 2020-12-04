@@ -82,6 +82,7 @@ h3 {
 }
 /*#endregion Titres*/
 .main {
+    margin-left: 10%;
     margin-bottom: 6em;
     display: flex;
 }
