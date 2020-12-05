@@ -9,7 +9,7 @@
         <router-link class="main-tab" :to="{name: 'Home'}">Home</router-link>
         <router-link class="main-tab" :to="{name: 'comprendre'}">Comprendre</router-link>
         <router-link class="main-tab" :to="{name: 'graphiques'}">Graphiques</router-link>
-        <router-link class="main-tab" :to="{name: 'porte_monnaie'}">Porte Monnaie</router-link>
+        <router-link class="main-tab" :to="{name: 'wallet'}">Wallet</router-link>
         <router-link class="main-tab" :to="{name: 'a_propos'}">A propos</router-link>
       </div>
     </div>
@@ -17,7 +17,7 @@
         <router-link tag="li" class="burger-tab" :to="{name: 'Home'}" >Home</router-link>
         <router-link tag="li" class="burger-tab" :to="{name: 'comprendre'}">Comprendre</router-link>
         <router-link tag="li" class="burger-tab" :to="{name: 'graphiques'}">Graphiques</router-link>
-        <router-link tag="li" class="burger-tab" :to="{name: 'porte_monnaie'}">Porte Monnaie</router-link>
+        <router-link tag="li" class="burger-tab" :to="{name: 'wallet'}">Wallet</router-link>
         <router-link tag="li" class="burger-tab" :to="{name: 'a_propos'}">A propos</router-link>
       </div>
     <router-view/>

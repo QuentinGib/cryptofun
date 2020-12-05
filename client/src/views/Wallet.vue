@@ -107,7 +107,6 @@ export default {
     this.holdingDolls = localStorage.getItem('HoldingDollsOf' + this.login) || 1000
     this.sommeTotale = this.holdingDolls
     this.currencies = JSON.parse(localStorage.getItem('prices'))
-    this.holdings = JSON.parse(localStorage.getItem('holdingsOf' + this.login))
 
     fetch('/api/v1/compte/cryptoTrade', {
       headers: {
@@ -121,7 +120,10 @@ export default {
         localStorage.removeItem('prices')
         localStorage.setItem('prices', JSON.stringify(this.currencies))
       })
-      .catch(error => { this.error = error })
+      .catch(error => {
+        this.error = error
+        this.$router.push({ name: 'porte_monnaie', query: { redirect: '/porte_monnaie' } })
+      })
 
     fetch('/api/v1/compte/holdings', {
       headers: {
@@ -130,11 +132,18 @@ export default {
     })
       .then(res => res.json())
       .then(({ currencies }) => {
+        this.holdings = JSON.parse(localStorage.getItem('holdingsOf' + this.login)) || this.currencies.slice(0, 11).map(currency => ({
+          id: currency.id,
+          symbol: currency.symbol,
+          name: currency.name,
+          somme: 0
+        }))
         this.holdingsNotNull = this.holdings.filter(crypto => crypto.somme > 0)
         let sum = +this.holdingDolls
         for (const cryptoHolded of this.holdings) {
           sum += this.currencies.find(x => x.id === cryptoHolded.id).price * cryptoHolded.somme
         }
+        console.log(this.sommeTotale)
         this.sommeTotale = sum
       })
       .catch(error => { this.error = error })
