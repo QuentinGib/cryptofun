@@ -11,7 +11,7 @@
 </head>
 <body>
     <main>
-      <div v-if="!isConnected()">
+      <div v-if="!connected">
         <form @submit.prevent="sendCredentials">
           <p>
             <label for="username">
@@ -41,7 +41,7 @@
           </button>
         </form>
       </div>
-      <div v-if="isConnected()">
+      <div v-if="connected">
         <h1>VOUS ETES CONNECTE</h1>
       </div>
     </main>
@@ -55,7 +55,8 @@ export default {
   data () {
     return {
       username: undefined,
-      password: undefined
+      password: undefined,
+      connected: false
     }
   },
   methods: {
@@ -76,15 +77,11 @@ export default {
         .then(({ success, token, message }) => {
           localStorage.setItem('token', token)
           localStorage.setItem('login', login)
+          if (success) {
+            this.connected = true
+          }
         })
         .catch(error => { this.error = error })
-    },
-    isConnected () {
-      const token = localStorage.getItem('token')
-      if (token) {
-        return true
-      }
-      return false
     }
   }
 }
