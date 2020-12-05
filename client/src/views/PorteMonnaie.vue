@@ -11,7 +11,7 @@
 </head>
 <body>
     <main>
-      <div v-if="!connected">
+      <div>
         <form @submit.prevent="sendCredentials">
           <p>
             <label for="username">
@@ -40,9 +40,6 @@
             Se connecter
           </button>
         </form>
-      </div>
-      <div v-if="connected">
-        <h1>VOUS ETES CONNECTE</h1>
       </div>
     </main>
 </body>
@@ -78,7 +75,7 @@ export default {
           localStorage.setItem('token', token)
           localStorage.setItem('login', login)
           if (success) {
-            this.connected = true
+            this.$router.push({ name: 'wallet', query: { redirect: '/wallet' } })
           }
         })
         .catch(error => { this.error = error })
