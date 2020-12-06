@@ -305,35 +305,13 @@ h3 {
 /*#endregion ImagesComprendre*/
 
 /*#region Wallet*/
-.wallet-main {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.wallet-block1 {
-    display: flex;
-    justify-content: space-around;
-}
-
-.wallet-monnaieDispo,
-.wallet-sommeTotale {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-
-    padding: 5%;
-    border: 6px solid #BDBDBD;
-    border-radius: 2em;
-    margin: 5%;
-}
-
 .wallet-block2 {
     display: flex;
     justify-content: space-around;
+
+    margin-top: 500px;
 }
 
-.wallet-cryptoDispo,
 .wallet-AchatRevente {
     display: flex;
     flex-direction: column;
@@ -343,6 +321,13 @@ h3 {
     border: 6px solid #BDBDBD;
     border-radius: 2em;
     margin: 5%;
+}
+
+.cryptodispo {
+    list-style: none;
+    position: relative;
+    top: 25%;
+    color: white;
 }
 
 /*#endregion Wallet*/
