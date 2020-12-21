@@ -49,47 +49,69 @@
   </div>
   <div class="wallet-block2">
     <div class="wallet-AchatRevente">
-      <h2>Trading :</h2>
+      <h2 style="color : #BDBDBD;">Trading :</h2>
       <ul>
         <form @submit.prevent="acheter" class="form-achat">
-          <select v-model="cryptoSelected">
-            <option
-              v-for="(currency, idx) in currencies"
-              v-bind:key="currency.id + idx"
-              :value="currency.name"
-            >
-              {{ currency.name }}
-            </option>
-          </select>
+          <div class="box">
+            <select v-model="cryptoSelected">
+              <option
+                v-for="(currency, idx) in currencies"
+                v-bind:key="currency.id + idx"
+                :value="currency.name"
+              >
+                {{ currency.name }}
+              </option>
+            </select>
+          </div>
           <p class="text-achat">
-            <label for="achat">
+            <label
+            for="achat"
+            style="color: #BDBDBD;"
+            >
               pour un montant de $
             </label>
             <input
               id="achat"
               v-model.number="achat"
               type="number"
+              class="app-form-control"
             >
           </p>
-          <button type="submit">Acheter</button>
+          <button
+          type="submit"
+          class="button-achat"
+          >
+            Acheter
+          </button>
         </form>
         <form @submit.prevent="vendre">
-          <select v-model="cryptoSelected">
-            <option v-for="currency in holdingsNotNull" v-bind:key="currency.id" >
-              {{ currency.name }}
-            </option>
-          </select>
+          <div class="box">
+            <select v-model="cryptoSelected">
+              <option v-for="currency in holdingsNotNull" v-bind:key="currency.id" >
+                {{ currency.name }}
+              </option>
+            </select>
+          </div>
           <p>
-            <label for="vente">
+            <label
+            for="vente"
+            style="color: #BDBDBD;"
+            >
               pour un montant de $
             </label>
             <input
               id="vente"
               v-model.number="vente"
               type="number"
+              class="app-form-control"
             >
           </p>
-          <button type="submit">Vendre</button>
+          <button
+          type="submit"
+          class="button-vendre"
+          >
+            Vendre
+          </button>
         </form>
       </ul>
     </div>
@@ -293,4 +315,92 @@ svg {
   stroke-dashoffset: 260;
   transition: 0.6s ease-out;
 }
+
+/*#region Trading*/
+
+.box select {
+  background-color: #4D4D4F;
+  color: white;
+  padding: 12px;
+  width: 250px;
+  border: none;
+  font-size: 20px;
+  box-shadow: none;
+  -webkit-appearance: button;
+  appearance: button;
+  outline: none;
+}
+
+.box::before {
+  top: 0;
+  right: 0;
+  width: 20%;
+  height: 100%;
+  text-align: center;
+  font-size: 28px;
+  line-height: 45px;
+  color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+}
+
+.box:hover::before {
+  color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.box select option {
+  padding: 30px;
+}
+
+.app-form-control {
+  width: 100%;
+  padding: 10px 0;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #666;
+  color: #ddd;
+  font-size: 14px;
+  text-transform: uppercase;
+  outline: none;
+  transition: border-color .2s;
+}
+
+.app-form-control::placeholder {
+  color: #666;
+}
+
+.app-form-control:focus {
+  border-bottom-color: #ddd;
+}
+
+.button-achat {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background-color: #007C00;
+  width: 150px;
+  height: 35px;
+  border-radius: 15px;
+  color: white;
+  background-size: 100% 100%;
+  box-shadow: 0 0 0 7px var(--light) inset;
+  margin-bottom: 60px;
+}
+
+.button-vendre {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background-color:#C61501;
+  width: 150px;
+  height: 35px;
+  border-radius: 15px;
+  color: white;
+  background-size: 100% 100%;
+  box-shadow: 0 0 0 7px var(--light) inset;
+  margin-bottom: 15px;
+}
+
+/*#endregion Trading*/
 </style>

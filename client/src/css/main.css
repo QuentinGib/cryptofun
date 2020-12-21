@@ -317,8 +317,9 @@ h3 {
     flex-direction: column;
     justify-content: space-around;
 
+    background-color: #3E3E3E;
     padding: 5%;
-    border: 6px solid #BDBDBD;
+    border: 6px solid #4D4D4F;
     border-radius: 2em;
     margin: 5%;
 }
