@@ -1,91 +1,102 @@
 <template>
   <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Porte Monnaie</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
-</head>
-<body>
-    <main>
-      <div class="login-box">
-        <h2>Login</h2>
-        <form @submit.prevent="sendCredentials">
-          <div class="user-box">
-            <input
-            type="text"
-            name=""
-            required=""
-            id="username"
-            v-model="username"
-            autocomplete="off"
-            >
-            <label for="username">Username</label>
-          </div>
-          <div class="user-box">
-            <input
-            name=""
-            id="paswword"
-            v-model="password"
-            type="password"
-            required=""
-            autocomplete="off"
-            >
-            <label>Password</label>
-          </div>
-          <button type="submit" class="subbutton">
-            Se connecter
-          </button>
-        </form>
-      </div>
-    </main>
-</body>
-</html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Porte Monnaie</title>
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+      />
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+      />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap"
+        rel="stylesheet"
+      />
+    </head>
+    <body>
+      <main>
+        <div class="login-box">
+          <h2>Login</h2>
+          <form @submit.prevent="sendCredentials">
+            <div class="user-box">
+              <input
+                type="text"
+                name=""
+                required=""
+                id="username"
+                v-model="username"
+                autocomplete="off"
+              />
+              <label for="username">Username</label>
+            </div>
+            <div class="user-box">
+              <input
+                name=""
+                id="paswword"
+                v-model="password"
+                type="password"
+                required=""
+                autocomplete="off"
+              />
+              <label>Password</label>
+            </div>
+            <button type="submit" class="subbutton">Se connecter</button>
+          </form>
+        </div>
+      </main>
+    </body>
+  </html>
 </template>
 
 <script>
 export default {
-  name: 'porte_monnaie',
-  data () {
+  name: "porte_monnaie",
+  data() {
     return {
       username: undefined,
       password: undefined,
-      connected: false
-    }
+      connected: false,
+    };
   },
   methods: {
-    sendCredentials () {
-      const login = this.username
-      const password = this.password
-      fetch('/api/v1/auth/token', {
-        method: 'POST',
+    sendCredentials() {
+      const login = this.username;
+      const password = this.password;
+      fetch("/api/v1/auth/token", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           login,
-          password
-        })
+          password,
+        }),
       })
-        .then(res => res.json())
+        .then((res) => res.json())
         .then(({ success, token, message }) => {
-          localStorage.setItem('token', token)
-          localStorage.setItem('login', login)
+          localStorage.setItem("token", token);
+          localStorage.setItem("login", login);
           if (success) {
-            this.$router.push({ name: 'wallet', query: { redirect: '/wallet' } })
+            this.$router.push({
+              name: "wallet",
+              query: { redirect: "/wallet" },
+            });
           }
         })
-        .catch(error => { this.error = error })
-    }
-  }
-}
+        .catch((error) => {
+          this.error = error;
+        });
+    },
+  },
+};
 </script>
 
 <style>
-
 .login-box {
   font-family: sans-serif;
   background: linear-gradient(#141e30, #243b55);
@@ -96,7 +107,7 @@ export default {
   padding: 40px;
   transform: translate(-50%, -50%);
   box-sizing: border-box;
-  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
 }
 
@@ -124,13 +135,13 @@ export default {
 }
 .login-box .user-box label {
   position: absolute;
-  top:0;
+  top: 0;
   left: 0;
   padding: 10px 0;
   font-size: 16px;
   color: #fff;
   pointer-events: none;
-  transition: .5s;
+  transition: 0.5s;
 }
 
 .login-box .user-box input:focus ~ label,
@@ -150,9 +161,9 @@ export default {
   text-decoration: none;
   text-transform: uppercase;
   overflow: hidden;
-  transition: .5s;
+  transition: 0.5s;
   margin-top: 40px;
-  letter-spacing: 4px
+  letter-spacing: 4px;
 }
 
 .subbutton {
@@ -165,7 +176,7 @@ export default {
   padding: 0.25rem 0.5rem;
   width: 15rem;
   transition: all 0.25s;
-  background:  #21364E;
+  background: #21364e;
   margin-top: 0.625rem;
   order: 4;
   outline: 1px dashed transparent;
@@ -177,14 +188,13 @@ export default {
 .subbutton:hover {
   color: #03e9f4;
   border: 1.5px solid #03e9f4;
-  background:  #21364E;
+  background: #21364e;
 }
 
 .subbutton:active {
-  color: #21364E;
+  color: #21364e;
   border: 1.5px solid #03e9f4;
   background: #03e9f4;
   transition: all 0.125s;
 }
-
 </style>
