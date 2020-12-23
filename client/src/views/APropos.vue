@@ -42,8 +42,8 @@
 
 <script>
 export default {
-  name: "Comprendre",
-};
+  name: 'Comprendre'
+}
 </script>
 
 <style>

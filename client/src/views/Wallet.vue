@@ -121,85 +121,85 @@
 
 <script>
 export default {
-  name: "Wallet",
+  name: 'Wallet',
 
-  data() {
+  data () {
     return {
       achat: 0,
       vente: 0,
-      login: "",
+      login: '',
       holdingsNotNull: [],
       sommeTotale: 0,
       currencies: [],
       holdings: [],
       holdingDolls: 0,
-      cryptoSelected: "",
-    };
+      cryptoSelected: ''
+    }
   },
 
-  mounted() {
-    const token = localStorage.getItem("token");
-    this.login = localStorage.getItem("login");
+  mounted () {
+    const token = localStorage.getItem('token')
+    this.login = localStorage.getItem('login')
     this.holdingDolls =
-      JSON.parse(localStorage.getItem("HoldingDollsOf" + this.login)) || 1000;
-    this.sommeTotale = this.holdingDolls;
-    this.currencies = JSON.parse(localStorage.getItem("prices"));
+      JSON.parse(localStorage.getItem('HoldingDollsOf' + this.login)) || 1000
+    this.sommeTotale = this.holdingDolls
+    this.currencies = JSON.parse(localStorage.getItem('prices'))
 
-    fetch("/api/v1/compte/cryptoTrade", {
+    fetch('/api/v1/compte/cryptoTrade', {
       headers: {
-        Authorization: "Bearer " + token,
-      },
+        Authorization: 'Bearer ' + token
+      }
     })
       .then((res) => res.json())
       .then(({ currencies }) => {
-        this.currencies = currencies.slice(0, 11);
-        this.cryptoSelected = this.currencies[0].name;
-        localStorage.removeItem("prices");
-        localStorage.setItem("prices", JSON.stringify(this.currencies));
+        this.currencies = currencies.slice(0, 11)
+        this.cryptoSelected = this.currencies[0].name
+        localStorage.removeItem('prices')
+        localStorage.setItem('prices', JSON.stringify(this.currencies))
       })
       .catch((error) => {
-        this.error = error;
+        this.error = error
         this.$router.push({
-          name: "porte_monnaie",
-          query: { redirect: "/porte_monnaie" },
+          name: 'porte_monnaie',
+          query: { redirect: '/porte_monnaie' },
         });
       });
 
-    fetch("/api/v1/compte/holdings", {
+    fetch('/api/v1/compte/holdings', {
       headers: {
-        Authorization: "Bearer " + token,
+        Authorization: 'Bearer ' + token,
       },
     })
       .then((res) => res.json())
       .then(({ currencies }) => {
         this.holdings =
-          JSON.parse(localStorage.getItem("holdingsOf" + this.login)) ||
+          JSON.parse(localStorage.getItem('holdingsOf' + this.login)) ||
           this.currencies.slice(0, 11).map((currency) => ({
             id: currency.id,
             symbol: currency.symbol,
             name: currency.name,
             somme: 0,
-          }));
+          }))
         this.holdingsNotNull = this.holdings.filter(
           (crypto) => crypto.somme > 0
-        );
-        let sum = +this.holdingDolls;
+        )
+        let sum = +this.holdingDolls
         for (const cryptoHolded of this.holdings) {
           sum +=
             this.currencies.find((x) => x.id === cryptoHolded.id).price *
-            cryptoHolded.somme;
+            cryptoHolded.somme
         }
         console.log(this.sommeTotale);
-        this.sommeTotale = Math.round(sum * 1000) / 1000;
+        this.sommeTotale = Math.round(sum * 1000) / 1000
       })
       .catch((error) => {
-        this.error = error;
-      });
+        this.error = error
+      })
   },
 
   methods: {
     acheter() {
-      this.currencies = JSON.parse(localStorage.getItem("prices"));
+      this.currencies = JSON.parse(localStorage.getItem('prices'));
       if (this.holdingDolls >= this.achat) {
         this.holdings[
           this.holdings.indexOf(
@@ -211,11 +211,11 @@ export default {
             .price;
         this.holdingDolls -= this.achat;
         localStorage.setItem(
-          "holdingsOf" + this.login,
+          'holdingsOf' + this.login,
           JSON.stringify(this.holdings)
         );
         localStorage.setItem(
-          "HoldingDollsOf" + this.login,
+          'HoldingDollsOf' + this.login,
           JSON.stringify(this.holdingDolls)
         );
         window.location.reload();
@@ -240,11 +240,11 @@ export default {
         ].somme -= venteEnCrypto;
         this.holdingDolls += this.vente;
         localStorage.setItem(
-          "holdingsOf" + this.login,
+          'holdingsOf' + this.login,
           JSON.stringify(this.holdings)
         );
         localStorage.setItem(
-          "HoldingDollsOf" + this.login,
+          'HoldingDollsOf' + this.login,
           JSON.stringify(this.holdingDolls)
         );
         window.location.reload();

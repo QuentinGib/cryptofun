@@ -51,27 +51,27 @@
 
 <script>
 export default {
-  name: "Graphiques",
+  name: 'Graphiques',
 
-  data() {
+  data () {
     return {
       currencies: [],
-      error: "",
-    };
+      error: ''
+    }
   },
 
-  mounted() {
+  mounted () {
     // Fetch de currencies
-    fetch("/api/v1/currencies")
+    fetch('/api/v1/currencies')
       .then((res) => res.json())
       .then(({ currencies }) => {
-        this.currencies = currencies;
+        this.currencies = currencies
       })
       .catch((error) => {
-        this.error = error;
-      });
-  },
-};
+        this.error = error
+      })
+  }
+}
 </script>
 
 <style></style>

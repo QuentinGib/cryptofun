@@ -55,45 +55,45 @@
 
 <script>
 export default {
-  name: "porte_monnaie",
-  data() {
+  name: 'porte_monnaie',
+  data () {
     return {
       username: undefined,
       password: undefined,
-      connected: false,
-    };
+      connected: false
+    }
   },
   methods: {
-    sendCredentials() {
-      const login = this.username;
-      const password = this.password;
-      fetch("/api/v1/auth/token", {
-        method: "POST",
+    sendCredentials () {
+      const login = this.username
+      const password = this.password
+      fetch('/api/v1/auth/token', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           login,
-          password,
-        }),
+          password
+        })
       })
         .then((res) => res.json())
         .then(({ success, token, message }) => {
-          localStorage.setItem("token", token);
-          localStorage.setItem("login", login);
+          localStorage.setItem('token', token)
+          localStorage.setItem('login', login)
           if (success) {
             this.$router.push({
-              name: "wallet",
-              query: { redirect: "/wallet" },
-            });
+              name: 'wallet',
+              query: { redirect: '/wallet' }
+            })
           }
         })
         .catch((error) => {
-          this.error = error;
-        });
-    },
-  },
-};
+          this.error = error
+        })
+    }
+  }
+}
 </script>
 
 <style>

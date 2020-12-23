@@ -48,22 +48,22 @@
 
 <script>
 export default {
-  name: "App",
-  data() {
+  name: 'App',
+  data () {
     return {
-      token: false,
-    };
+      token: false
+    }
   },
-  mounted() {
-    const burger = document.querySelector(".burger");
-    const mainnav = document.getElementById("burgernav");
-    burger.addEventListener("click", () => {
-      mainnav.classList.toggle("active");
-      burger.classList.toggle("active");
-    });
-    this.token = localStorage.getItem("token");
-  },
-};
+  mounted () {
+    const burger = document.querySelector('.burger')
+    const mainnav = document.getElementById('burgernav')
+    burger.addEventListener('click', () => {
+      mainnav.classList.toggle('active')
+      burger.classList.toggle('active')
+    })
+    this.token = localStorage.getItem('token')
+  }
+}
 </script>
 
 <style>
