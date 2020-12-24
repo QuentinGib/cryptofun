@@ -161,14 +161,14 @@ export default {
         this.error = error
         this.$router.push({
           name: 'porte_monnaie',
-          query: { redirect: '/porte_monnaie' },
-        });
-      });
+          query: { redirect: '/porte_monnaie' }
+        })
+      })
 
     fetch('/api/v1/compte/holdings', {
       headers: {
-        Authorization: 'Bearer ' + token,
-      },
+        Authorization: 'Bearer ' + token
+      }
     })
       .then((res) => res.json())
       .then(({ currencies }) => {
@@ -178,7 +178,7 @@ export default {
             id: currency.id,
             symbol: currency.symbol,
             name: currency.name,
-            somme: 0,
+            somme: 0
           }))
         this.holdingsNotNull = this.holdings.filter(
           (crypto) => crypto.somme > 0
@@ -189,7 +189,7 @@ export default {
             this.currencies.find((x) => x.id === cryptoHolded.id).price *
             cryptoHolded.somme
         }
-        console.log(this.sommeTotale);
+        console.log(this.sommeTotale)
         this.sommeTotale = Math.round(sum * 1000) / 1000
       })
       .catch((error) => {
@@ -198,8 +198,8 @@ export default {
   },
 
   methods: {
-    acheter() {
-      this.currencies = JSON.parse(localStorage.getItem('prices'));
+    acheter () {
+      this.currencies = JSON.parse(localStorage.getItem('prices'))
       if (this.holdingDolls >= this.achat) {
         this.holdings[
           this.holdings.indexOf(
@@ -208,52 +208,52 @@ export default {
         ].somme +=
           this.achat /
           this.currencies.find((crypto) => crypto.name === this.cryptoSelected)
-            .price;
-        this.holdingDolls -= this.achat;
+            .price
+        this.holdingDolls -= this.achat
         localStorage.setItem(
           'holdingsOf' + this.login,
           JSON.stringify(this.holdings)
-        );
+        )
         localStorage.setItem(
           'HoldingDollsOf' + this.login,
           JSON.stringify(this.holdingDolls)
-        );
-        window.location.reload();
+        )
+        window.location.reload()
       } else {
         // erreur
       }
     },
 
-    vendre() {
+    vendre () {
       const possessionEnCrypto = this.holdings.find(
         (choixCrypto) => choixCrypto.name === this.cryptoSelected
-      ).somme;
+      ).somme
       const venteEnCrypto =
         this.vente /
         this.currencies.find((crypto) => crypto.name === this.cryptoSelected)
-          .price;
+          .price
       if (venteEnCrypto <= possessionEnCrypto) {
         this.holdings[
           this.holdings.indexOf(
             this.holdings.find((crypto) => crypto.name === this.cryptoSelected)
           )
-        ].somme -= venteEnCrypto;
-        this.holdingDolls += this.vente;
+        ].somme -= venteEnCrypto
+        this.holdingDolls += this.vente
         localStorage.setItem(
           'holdingsOf' + this.login,
           JSON.stringify(this.holdings)
-        );
+        )
         localStorage.setItem(
           'HoldingDollsOf' + this.login,
           JSON.stringify(this.holdingDolls)
-        );
-        window.location.reload();
+        )
+        window.location.reload()
       } else {
         // erreur
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style>
