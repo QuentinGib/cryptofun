@@ -33,7 +33,8 @@ router.post('/token', (req, res) => {
     const token = tokenUtils.createToken(payload)
     res.json({
         success: true,
-        token
+        token,
+        message: body.login
     })    
     })
 

@@ -59,38 +59,20 @@ export default {
   data () {
     return {
       username: undefined,
-      password: undefined,
-      connected: false
+      password: undefined
     }
   },
   methods: {
     sendCredentials () {
       const login = this.username
       const password = this.password
-      fetch('/api/v1/auth/token', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          login,
-          password
+      this.$store.dispatch('login', { login, password })
+      if (localStorage.getItem('token')) {
+        this.$router.push({
+          name: 'wallet',
+          query: { redirect: '/wallet' }
         })
-      })
-        .then((res) => res.json())
-        .then(({ success, token, message }) => {
-          localStorage.setItem('token', token)
-          localStorage.setItem('login', login)
-          if (success) {
-            this.$router.push({
-              name: 'wallet',
-              query: { redirect: '/wallet' }
-            })
-          }
-        })
-        .catch((error) => {
-          this.error = error
-        })
+      }
     }
   }
 }
