@@ -1,28 +1,4 @@
 <template>
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Porte Monnaie</title>
-      <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300i,400"
-        rel="stylesheet"
-      />
-      <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
-      />
-      <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
-      />
-      <link rel="stylesheet" href="./css/main.css" />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap"
-        rel="stylesheet"
-      />
-    </head>
     <body>
       <div class="container">
         <div class="card">
@@ -116,7 +92,6 @@
         </div>
       </div>
     </body>
-  </html>
 </template>
 
 <script>
