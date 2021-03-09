@@ -139,7 +139,7 @@ export default {
 
   mounted () {
     const token = localStorage.getItem('token')
-    this.login = localStorage.getItem('login')
+    this.login = this.$store.state.user
     this.holdingDolls =
       JSON.parse(localStorage.getItem('HoldingDollsOf' + this.login)) || 1000
     this.sommeTotale = this.holdingDolls

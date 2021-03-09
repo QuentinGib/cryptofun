@@ -50,26 +50,15 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'Graphiques',
 
-  data () {
-    return {
-      currencies: [],
-      error: ''
-    }
-  },
+  computed: mapState(['currencies']),
 
   mounted () {
     // Fetch de currencies
-    fetch('/api/v1/currencies')
-      .then((res) => res.json())
-      .then(({ currencies }) => {
-        this.currencies = currencies
-      })
-      .catch((error) => {
-        this.error = error
-      })
+    this.$store.dispatch('graphiques')
   }
 }
 </script>
