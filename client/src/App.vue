@@ -1,6 +1,3 @@
-  <style>
-  @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
-  </style>
 <template>
   <div>
     <div class="main-header">
@@ -70,6 +67,7 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 #mainnav a.router-link-exact-active {
   color: #bdbdbd;
 }
