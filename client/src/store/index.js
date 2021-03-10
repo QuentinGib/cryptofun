@@ -4,7 +4,9 @@ import api from '@/api/api'
 export default createStore({
   state: {
     user: undefined,
-    currencies: []
+    currencies: [],
+    tradeCurrencies: [],
+    cryptoSelected: ''
   },
   mutations: {
     setUser (state, user) {
@@ -12,6 +14,12 @@ export default createStore({
     },
     setCurrencies (state, currencies) {
       state.currencies = currencies
+    },
+    setTradableCryptos (state, tradeCurrencies) {
+      state.tradeCurrencies = tradeCurrencies
+    },
+    setCryptoSelected (state, cryptoSelected) {
+      state.cryptoSelected = cryptoSelected
     }
   },
   actions: {
@@ -28,6 +36,7 @@ export default createStore({
           commit('setUser', message)
         })
     },
+
     graphiques ({ commit }) {
       api.currencies()
         .then(data => {
@@ -37,6 +46,16 @@ export default createStore({
             return
           }
           commit('setCurrencies', currencies)
+        })
+    },
+
+    cryptoTrade ({ commit }, token) {
+      api.trade(token)
+        .then(({ data }) => {
+          commit('setTradableCryptos', data.slice(0, 11))
+          commit('setCryptoSelected', data[0].slice(0, 11).name)
+          localStorage.removeItem('prices')
+          localStorage.setItem('prices', JSON.stringify(data.slice(0, 11)))
         })
     }
   },

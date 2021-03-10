@@ -95,6 +95,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'Wallet',
 
@@ -107,10 +108,11 @@ export default {
       sommeTotale: 0,
       currencies: [],
       holdings: [],
-      holdingDolls: 0,
-      cryptoSelected: ''
+      holdingDolls: 0
     }
   },
+
+  computed: mapState(['cryptoSelected']),
 
   mounted () {
     const token = localStorage.getItem('token')
@@ -120,25 +122,7 @@ export default {
     this.sommeTotale = this.holdingDolls
     this.currencies = JSON.parse(localStorage.getItem('prices'))
 
-    fetch('/api/v1/compte/cryptoTrade', {
-      headers: {
-        Authorization: 'Bearer ' + token
-      }
-    })
-      .then((res) => res.json())
-      .then(({ currencies }) => {
-        this.currencies = currencies.slice(0, 11)
-        this.cryptoSelected = this.currencies[0].name
-        localStorage.removeItem('prices')
-        localStorage.setItem('prices', JSON.stringify(this.currencies))
-      })
-      .catch((error) => {
-        this.error = error
-        this.$router.push({
-          name: 'porte_monnaie',
-          query: { redirect: '/porte_monnaie' }
-        })
-      })
+    this.$store.dispatch('cryptoTrade', token)
 
     fetch('/api/v1/compte/holdings', {
       headers: {
