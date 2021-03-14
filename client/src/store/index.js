@@ -5,8 +5,7 @@ export default createStore({
   state: {
     user: undefined,
     currencies: [],
-    tradeCurrencies: [],
-    cryptoSelected: ''
+    tradeCurrencies: []
   },
   mutations: {
     setUser (state, user) {
@@ -17,9 +16,6 @@ export default createStore({
     },
     setTradableCryptos (state, tradeCurrencies) {
       state.tradeCurrencies = tradeCurrencies
-    },
-    setCryptoSelected (state, cryptoSelected) {
-      state.cryptoSelected = cryptoSelected
     }
   },
   actions: {
@@ -51,11 +47,35 @@ export default createStore({
 
     cryptoTrade ({ commit }, token) {
       api.trade(token)
-        .then(({ data }) => {
-          commit('setTradableCryptos', data.slice(0, 11))
-          commit('setCryptoSelected', data[0].slice(0, 11).name)
+        .then(data => {
+          const { success, currencies } = data
+          if (!success) {
+            console.error('erreur lors du chargement des infos')
+            return
+          }
+          commit('setTradableCryptos', currencies.slice(0, 11))
           localStorage.removeItem('prices')
-          localStorage.setItem('prices', JSON.stringify(data.slice(0, 11)))
+          localStorage.setItem('prices', JSON.stringify(currencies.slice(0, 11)))
+        })
+    },
+
+    checkToken ({ commit }) {
+      const token = localStorage.getItem('token')
+      if (!token) {
+        return
+      }
+      return api.checkToken(token)
+        .then(data => {
+          const { success, message, user } = data
+
+          if (!success) {
+            // Afficher le message d'erreur à l'utilisateur
+            console.warn(message)
+            return false
+          }
+
+          commit('setUser', user)
+          return true
         })
     }
   },

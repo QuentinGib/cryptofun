@@ -1,41 +1,66 @@
 const express = require('express')
-
 const tokenUtils = require('../utils/token-utils.js')
-
 const router = new express.Router()
 const dotenv= require('dotenv')
+
 router.post('/token', (req, res) => {
-    const authorizedLogin = process.env.AUTHORIZED_LOGIN
-    const authorizedPasswd = process.env.AUTHORIZED_PASSWD
+  const authorizedLogin = process.env.AUTHORIZED_LOGIN
+  const authorizedPasswd = process.env.AUTHORIZED_PASSWD
+  const body = req.body
+  
+  if (!body || !body.login || !body.password) {
+      res.status(401).json({
+          success: false,
+          message: 'Login and password are required'
+      })
+      return
+  }
+  if (body.password !== authorizedPasswd || body.login !== authorizedLogin) {
+      res.status(401).json({
+          success: false,
+          message: 'Invalid credentials'
+      })
+      return
+  }
+  const payload = {
+      login: body.login,
+  }
+  const token = tokenUtils.createToken(payload)
+  res.status(201).json({
+      success: true,
+      token,
+      message: body.login
+  })    
+})
 
-    const body = req.body
-    
-    if (!body || !body.login || !body.password) {
-        res.status(401).json({
-            success: false,
-            message: 'Login and password are required'
-        })
-        return
-    }
+router.get('/me', (req, res) => {
+  const token = req.headers.authorization.replace('Bearer ', '')
 
-    if (body.password !== authorizedPasswd || body.login !== authorizedLogin) {
-        res.status(401).json({
-            success: false,
-            message: 'Invalid credentials'
-        })
-        return
-    }
+  const response = res
+    .header('Cache-Control', 'private, no-cache, no-store, must-revalidate')
+    .header('Expires', '-1')
+    .header('Pragma', 'no-cache')
 
-    const payload = {
-        login: body.login,
-    }
-
-    const token = tokenUtils.createToken(payload)
-    res.status(201).json({
-        success: true,
-        token,
-        message: body.login
-    })    
+  try {
+    const payload = tokenUtils.checkToken(token)
+    const login = payload.login
+    // Chercher et trouver l'utilisateur correspondant à ce login
+    // TODO: à faire avec mongodb
+    console.log({ payload })
+    response.json({
+      success: true,
+      user: {
+        login,
+        password: undefined
+      }
     })
+  } catch (error) {
+    response.status(401)
+      .json({
+        success: false,
+        message: 'Token invalide'
+      })
+  }
+})
 
 module.exports = router

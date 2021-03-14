@@ -13,5 +13,8 @@ export default {
   },
   currencies () {
     return jsonClient.get(apiRoutes.currencies)
+  },
+  checkToken (token) {
+    return jsonClient.getAuth(apiRoutes.me, token)
   }
 }

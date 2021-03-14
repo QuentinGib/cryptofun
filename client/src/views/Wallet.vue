@@ -95,7 +95,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 export default {
   name: 'Wallet',
 
@@ -108,11 +107,10 @@ export default {
       sommeTotale: 0,
       currencies: [],
       holdings: [],
-      holdingDolls: 0
+      holdingDolls: 0,
+      cryptoSelected: ''
     }
   },
-
-  computed: mapState(['cryptoSelected']),
 
   mounted () {
     const token = localStorage.getItem('token')

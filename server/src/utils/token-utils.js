@@ -6,12 +6,12 @@ const options = {
 
 module.exports = {
     createToken (payload) {
-        const secret = process.env.SECRET || '53CR37!'
+        const secret = process.env.AUTHORIZED_PASSWD
         const token = jwt.sign(payload, secret, options)
         return token
     },
     checkToken (token) {
-        const secret = process.env.SECRET || '53CR37!'
-        jwt.verify(token, secret)
+        const secret = process.env.AUTHORIZED_PASSWD
+        return jwt.verify(token, secret)
     }
 }

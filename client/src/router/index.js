@@ -8,6 +8,7 @@ import Cours from '@/views/Cours.vue'
 import Blockchain from '@/views/Cours/Blockchain.vue'
 import Crypto from '@/views/Cours/Crypto.vue'
 import Wallet from '@/views/Wallet.vue'
+import { checkTokenBeforeEnter } from './router-utils'
 
 const routes = [
   {
@@ -33,7 +34,8 @@ const routes = [
   {
     path: '/wallet',
     name: 'wallet',
-    component: Wallet
+    component: Wallet,
+    beforeEnter: checkTokenBeforeEnter
   },
   {
     path: '/a_propos',
