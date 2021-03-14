@@ -17,7 +17,7 @@
         <router-link class="main-tab" :to="{ name: 'graphiques' }"
           >Graphiques</router-link
         >
-        <router-link class="main-tab" :to="{ name: 'porte_monnaie' }"
+        <router-link class="main-tab" :to="{ name: 'wallet' }"
           >Wallet</router-link
         >
         <router-link class="main-tab" :to="{ name: 'a_propos' }"
@@ -35,7 +35,7 @@
       <router-link tag="li" class="burger-tab" :to="{ name: 'graphiques' }"
         >Graphiques</router-link
       >
-      <router-link tag="li" class="burger-tab" :to="{ name: 'porte_monnaie' }"
+      <router-link tag="li" class="burger-tab" :to="{ name: 'wallet' }"
         >Wallet</router-link
       >
       <router-link tag="li" class="burger-tab" :to="{ name: 'a_propos' }"

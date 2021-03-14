@@ -4,9 +4,12 @@ export function checkTokenBeforeEnter (to, from, next) {
   store.dispatch('checkToken')
     .then(isValidToken => {
       if (isValidToken) {
-        next(true)
-        return
+        next()
+      } else {
+        next({
+          path: '/porte_monnaie',
+          query: { redirect: to.fullPath }
+        })
       }
-      next({ name: 'porte_monnaie' })
     })
 }
