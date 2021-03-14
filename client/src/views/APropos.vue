@@ -11,7 +11,6 @@
     spécialisés dans les technologies de la FinTech.
   </p>
   <p class="ap-liens">
-  <fa-icon icon="power-off" />
     GitHub du projet :
     <a href="https://github.com/QuentinGib/cryptofun.git">CryptoFun</a>
   </p>
