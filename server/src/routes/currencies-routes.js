@@ -84,29 +84,4 @@ router.get('/cryptoTrade', verifyToken, function getRoot(req, res) {
     })
 })
 
-router.get('/holdings', verifyToken, function getRoot(req, res) {
-
-    const path = '/cryptocurrency/listings/latest'
-
-    fetchCMC(path)
-    .then(currencies => {
-        res.json({
-            success: true,
-            currencies: currencies.slice(0, 11).map(currency => ({
-                id: currency.id,
-                symbol: currency.symbol,
-                name: currency.name,
-                somme: 0
-            })),
-        })
-    })
-    .catch(error => {
-        res.json({
-            success: false,
-            message: error.message
-        })
-    })
-})
-
-
 module.exports = router
