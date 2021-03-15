@@ -121,14 +121,7 @@ export default {
     this.currencies = JSON.parse(localStorage.getItem('prices'))
 
     this.$store.dispatch('cryptoTrade', token)
-
-    fetch('/api/v1/compte/holdings', {
-      headers: {
-        Authorization: 'Bearer ' + token
-      }
-    })
-      .then((res) => res.json())
-      .then(({ currencies }) => {
+      .then(() => {
         this.holdings =
           JSON.parse(localStorage.getItem('holdingsOf' + this.login)) ||
           this.currencies.slice(0, 11).map((currency) => ({
@@ -148,9 +141,6 @@ export default {
         }
         console.log(this.sommeTotale)
         this.sommeTotale = Math.round(sum * 1000) / 1000
-      })
-      .catch((error) => {
-        this.error = error
       })
   },
 
