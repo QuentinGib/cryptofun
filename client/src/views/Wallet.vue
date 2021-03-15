@@ -43,7 +43,7 @@
               <div class="box">
                 <select v-model="cryptoSelected">
                   <option
-                    v-for="(currency, idx) in currencies"
+                    v-for="(currency, idx) in tradeCurrencies"
                     v-bind:key="currency.id + idx"
                     :value="currency.name"
                   >
@@ -95,6 +95,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'Wallet',
 
@@ -103,50 +104,27 @@ export default {
       achat: 0,
       vente: 0,
       login: '',
-      holdingsNotNull: [],
-      sommeTotale: 0,
-      currencies: [],
-      holdings: [],
-      holdingDolls: 0,
       cryptoSelected: ''
     }
   },
 
+  computed: mapState(['tradeCurrencies', 'holdings', 'sommeTotale', 'holdingsNotNull', 'holdingDolls']),
+
   mounted () {
     const token = localStorage.getItem('token')
     this.login = this.$store.state.user
-    this.holdingDolls =
-      JSON.parse(localStorage.getItem('HoldingDollsOf' + this.login)) || 1000
-    this.sommeTotale = this.holdingDolls
-    this.currencies = JSON.parse(localStorage.getItem('prices'))
+    this.$store.commit('setHoldingsDolls', 0)
 
     this.$store.dispatch('cryptoTrade', token)
-      .then(() => {
-        this.holdings =
-          JSON.parse(localStorage.getItem('holdingsOf' + this.login)) ||
-          this.currencies.slice(0, 11).map((currency) => ({
-            id: currency.id,
-            symbol: currency.symbol,
-            name: currency.name,
-            somme: 0
-          }))
-        this.holdingsNotNull = this.holdings.filter(
-          (crypto) => crypto.somme > 0
-        )
-        let sum = +this.holdingDolls
-        for (const cryptoHolded of this.holdings) {
-          sum +=
-            this.currencies.find((x) => x.id === cryptoHolded.id).price *
-            cryptoHolded.somme
-        }
-        console.log(this.sommeTotale)
-        this.sommeTotale = Math.round(sum * 1000) / 1000
-      })
+    console.log('tradeCurrencies ', this.tradeCurrencies,
+      ' holdings ', this.holdings,
+      ' sommeTotale ', this.sommeTotale,
+      ' holdingsNotNull ', this.holdingsNotNull,
+      ' holdingDolls ', this.holdingDolls)
   },
 
   methods: {
     acheter () {
-      this.currencies = JSON.parse(localStorage.getItem('prices'))
       if (this.holdingDolls >= this.achat) {
         this.holdings[
           this.holdings.indexOf(
@@ -154,20 +132,14 @@ export default {
           )
         ].somme +=
           this.achat /
-          this.currencies.find((crypto) => crypto.name === this.cryptoSelected)
+          this.tradeCurrencies.find((crypto) => crypto.name === this.cryptoSelected)
             .price
         this.holdingDolls -= this.achat
-        localStorage.setItem(
-          'holdingsOf' + this.login,
-          JSON.stringify(this.holdings)
-        )
-        localStorage.setItem(
-          'HoldingDollsOf' + this.login,
-          JSON.stringify(this.holdingDolls)
-        )
+        this.$store.commit('setHoldings', this.holdings)
+        this.$store.commit('setHoldingsDolls', this.achat)
         window.location.reload()
       } else {
-        // erreur
+        alert("Erreur lors de l'achat")
       }
     },
 
@@ -177,7 +149,7 @@ export default {
       ).somme
       const venteEnCrypto =
         this.vente /
-        this.currencies.find((crypto) => crypto.name === this.cryptoSelected)
+        this.tradeCurrencies.find((crypto) => crypto.name === this.cryptoSelected)
           .price
       if (venteEnCrypto <= possessionEnCrypto) {
         this.holdings[
@@ -186,17 +158,11 @@ export default {
           )
         ].somme -= venteEnCrypto
         this.holdingDolls += this.vente
-        localStorage.setItem(
-          'holdingsOf' + this.login,
-          JSON.stringify(this.holdings)
-        )
-        localStorage.setItem(
-          'HoldingDollsOf' + this.login,
-          JSON.stringify(this.holdingDolls)
-        )
+        this.$store.commit('setHoldings', this.holdings)
+        this.$store.commit('setHoldingsDolls', this.vente)
         window.location.reload()
       } else {
-        // erreur
+        alert('Erreur lors de la vente')
       }
     }
   }
