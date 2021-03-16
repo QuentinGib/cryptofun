@@ -8,7 +8,7 @@ const app = express()
 
 dotenv.config()
 
-const port = 4000
+const port = process.env.PORT || 4000
 app.use(express.static(path.join(__dirname, 'dist')))
 app.use(bodyParser.json())
 
