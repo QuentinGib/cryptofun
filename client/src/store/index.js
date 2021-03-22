@@ -20,7 +20,7 @@ export default createStore({
   },
   actions: {
     login ({ commit }, credentials) {
-      api.login(credentials)
+      return api.login(credentials)
         .then(data => {
           const { success, token, message } = data
           if (!success) {
