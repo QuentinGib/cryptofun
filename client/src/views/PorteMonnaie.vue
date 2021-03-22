@@ -43,14 +43,6 @@ export default {
       const login = this.username
       const password = this.password
       this.$store.dispatch('login', { login, password })
-        .then(() => {
-          if (localStorage.getItem('token')) {
-            this.$router.push({
-              name: 'wallet',
-              query: { redirect: '/wallet' }
-            })
-          }
-        })
     }
   }
 }
