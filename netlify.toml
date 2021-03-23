@@ -7,7 +7,7 @@
   publish = "dist/"
 
   # Variables d'environment pour le build
-  environment = { VUE_APP_API_HOST = "https://venom-esilv.herokuapp.com" }
+  environment = { VUE_APP_API_HOST = "https://cryptofun-docker.herokuapp.com" }
 
   # Default build command.
   command = "npm run build"
