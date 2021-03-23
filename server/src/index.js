@@ -1,12 +1,11 @@
 const dotenv = require('dotenv')
 const express = require('express')
 const bodyParser = require('body-parser')
-<<<<<<< HEAD
 const path = require('path')
-=======
 const Connection = require('./connect.js')
+const app = express()
+app.use(cors())
 
->>>>>>> c4acafe506772245d2e313e06627a4e12cdc1ca9
 const router = require('./routes/index.js')
 
 const app = express()
@@ -18,7 +17,6 @@ app.use(express.static(path.join(__dirname, 'dist')))
 app.use(bodyParser.json())
 
 app.use('/api/v1', router)
-<<<<<<< HEAD
 // const { getConnectionToMongoDB } = require('./utils/db.js')
 // (...)
 function insertDocuments (db, callback) {
@@ -51,7 +49,6 @@ function insertDocuments (db, callback) {
   
   app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
-=======
 
 Connection.getConnection()
   .then(() => {
@@ -60,5 +57,4 @@ Connection.getConnection()
     })
   }).catch(error => {
     console.error(error)
->>>>>>> c4acafe506772245d2e313e06627a4e12cdc1ca9
   })
