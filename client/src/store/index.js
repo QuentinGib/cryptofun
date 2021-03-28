@@ -5,7 +5,11 @@ export default createStore({
   state: {
     user: undefined,
     currencies: [],
-    tradeCurrencies: []
+    tradeCurrencies: [],
+    holdings: null,
+    holdingsNotNull: [],
+    sommeTotale: 0,
+    holdingDolls: -1
   },
   mutations: {
     setUser (state, user) {
@@ -16,6 +20,24 @@ export default createStore({
     },
     setTradableCryptos (state, tradeCurrencies) {
       state.tradeCurrencies = tradeCurrencies
+    },
+    setHoldings (state, holdings) {
+      if (state.holdings === null) {
+        state.holdings = holdings
+      }
+    },
+    setSommeTotale (state, sommeCurrencies) {
+      state.sommeTotale = Math.round((sommeCurrencies + state.holdingDolls) * 1000) / 1000
+    },
+    setHoldingsNotNull (state, holdingsNotNull) {
+      state.holdingsNotNull = holdingsNotNull
+    },
+    setHoldingsDolls (state, difference) {
+      if (state.holdingDolls === -1) {
+        state.holdingDolls = 1000
+      } else {
+        state.holdingDolls += difference
+      }
     }
   },
   actions: {
@@ -54,8 +76,24 @@ export default createStore({
             return
           }
           commit('setTradableCryptos', currencies.slice(0, 11))
-          localStorage.removeItem('prices')
-          localStorage.setItem('prices', JSON.stringify(currencies.slice(0, 11)))
+          // à mettre sur mongodb sans doute
+          const holdsTemp = currencies.slice(0, 11).map((currency) => ({
+            id: currency.id,
+            symbol: currency.symbol,
+            name: currency.name,
+            somme: 0
+          }))
+          commit('setHoldings', holdsTemp)
+          commit('setHoldingsNotNull', holdsTemp.filter(
+            (crypto) => crypto.somme > 0
+          ))
+          let sum = 0
+          for (const cryptoHolded of holdsTemp) {
+            sum +=
+              currencies.find((x) => x.id === cryptoHolded.id).price *
+              cryptoHolded.somme
+          }
+          commit('setSommeTotale', sum)
         })
     },
 
