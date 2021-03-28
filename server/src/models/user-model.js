@@ -5,31 +5,23 @@ const { Schema } = mongoose
 
 const UserSchema = new Schema(
   {
-    firstname: {
-      type: String,
-      required: [true, 'Le prénom est manquant'],
-      trim: true
-    },
-    lastname: {
-      type: String,
-      required: [true, 'Le nom est manquant'],
-      trim: true
-    },
-    email: {
-      type: String,
-      required: [true, "L'adresse email est manquante"],
-      trim: true,
-      lowercase: true,
-      unique: true
-    },
     login: {
       type: String,
       required: [true, "Le nom d'utilisateur est manquant"],
-      trim: true
+      trim: true,
+      unique: true
     },
     password: {
       type: String,
       required: [true, 'Le mot de passe est manquant']
+    },
+    holdings: {
+      type: Object,
+      required: [true, "Aucun holdings initialisé"]
+    },
+    holdingDolls: {
+      type: Number,
+      required: [true, "Pas d'argent initialisé"]
     }
   }
 )
