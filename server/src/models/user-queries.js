@@ -1,4 +1,4 @@
-import User from './user-model.js'
+var User = require('./user-model.js')
 
 // CRUD
 // Create
@@ -15,31 +15,32 @@ import User from './user-model.js'
  * @param {import('./user-model').UserData} userData 
  * @returns {Promise.<import('./user-model').UserMongooseDocument>}
  */
+module.exports = {
+  createUser(userData) {
+    const user = new User(userData)
+    return user.save().then(() => user)
+  },
 
-export function createUser (userData) {
-  const user = new User(userData)
-  return user.save().then(() => user)
-}
+  getUserById(id) {
+    return User.findById(id)
+  },
 
-export function getUserById(id) {
-  return User.findById(id)
-}
+  getUserByLogin(login) {
+    return User.findOne({ login })
+  },
 
-export function getUserByLogin(login) {
-  return User.findOne({ login })
-}
+  getUsers () {
+    return User.find()
+  },
 
-export function getUsers () {
-  return User.find()
-}
+  modifyUser (userData) {
+    User.findById(userData.id)
+      .then(user => {
+        // (...)
+      })
+  },
 
-export function modifyUser (userData) {
-  User.findById(userData.id)
-    .then(user => {
-      // (...)
-    })
-}
-
-export function deleteUser (user) {
-  User.deleteOne({ id: user.id })
+  deleteUser (user) {
+    User.deleteOne({ id: user.id })
+  }
 }

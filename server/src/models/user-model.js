@@ -1,5 +1,5 @@
-import mongoose from 'mongoose'
-import { hash } from '../utils/crypto.js'
+const mongoose = require('mongoose')
+const { hash } = require('../utils/crypto.js')
 
 const { Schema } = mongoose
 
@@ -42,4 +42,4 @@ UserSchema.pre('save', function preSave () {
   user.password = hash(user.password)
 })
 
-export default mongoose.model('User', UserSchema)
+module.exports = mongoose.model('User', UserSchema)

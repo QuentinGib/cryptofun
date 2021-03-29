@@ -2,13 +2,12 @@ const dotenv = require('dotenv')
 const express = require('express')
 const bodyParser = require('body-parser')
 const path = require('path')
+const cors = require('cors')
 const Connection = require('./connect.js')
 const app = express()
 app.use(cors())
 
 const router = require('./routes/index.js')
-
-const app = express()
 
 dotenv.config()
 
@@ -31,9 +30,6 @@ app.use('/api/v1', router)
   }).catch(error => {
     console.error(error)
   }) */
-  
-  app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
 
 Connection.getConnection()
   .then(() => {

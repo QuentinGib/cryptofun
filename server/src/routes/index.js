@@ -14,7 +14,7 @@ router.use('/currencies', currenciesRoutes)
 
 router.use('/compte', /*verifyToken,*/ currenciesRoutes)
 
-app.post('/newUser', (req, res) => {
+router.post('/newUser', (req, res) => {
   const login = req.body.login
   const password = req.body.password
   const holdings = req.body.holdings

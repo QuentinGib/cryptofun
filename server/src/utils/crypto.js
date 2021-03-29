@@ -1,8 +1,9 @@
-import bcrypt from 'bcrypt'
+const bcrypt =  require('bcrypt')
 
-export function hash (passwd) {
-  return bcrypt.hash(passwd, 10)
-}
+module.exports = {
+  hash(passwd) {
+    return bcrypt.hash(passwd, 10)
+  },
 
 /**
  * Compare une chaîne en claire avec un hash
@@ -14,6 +15,8 @@ export function hash (passwd) {
  * @param {string} hash - Hash à comparer
  * @returns {Promise.<boolean>}
  */
-export function compareHash (passwd, hash) {
-  return bcrypt.compare(passwd, hash)
-}
+
+  compareHash (passwd, hash) {
+    return bcrypt.compare(passwd, hash)
+  }
+ }
