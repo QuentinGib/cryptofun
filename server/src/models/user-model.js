@@ -17,11 +17,11 @@ const UserSchema = new Schema(
     },
     holdings: {
       type: Object,
-      required: [true, "Aucun holdings initialisé"]
+      required: [false, "Aucun holdings initialisé"]
     },
     holdingDolls: {
       type: Number,
-      required: [true, "Pas d'argent initialisé"]
+      required: [false, "Pas d'argent initialisé"]
     }
   }
 )

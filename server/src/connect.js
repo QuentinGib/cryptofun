@@ -10,6 +10,7 @@ const mongoOptions = {
 module.exports = {
     getConnection () {
       const mongoUrl = process.env.MONGO_URL || process.env.MONGO_ATLAS_URL || defaultMongoUrl
-      return mongoose.connect(mongoUrl, mongoOptions)
+      console.log(mongoUrl)
+      return mongoose.connect(encodeURI(mongoUrl), mongoOptions)
     }
 }

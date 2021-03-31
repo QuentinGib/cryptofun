@@ -1,7 +1,9 @@
-const API_HOST = process.env.VUE_APP_API_HOST
+
+const API_HOST = '/api/v1/' // process.env.VUE_APP_API_HOST
 export default {
-  login: API_HOST + '/api/v1/auth/token',
-  trade: API_HOST + '/api/v1/compte/cryptoTrade',
-  currencies: API_HOST + '/api/v1/currencies',
-  me: API_HOST + '/api/v1/auth/me'
+  registerUser: API_HOST + 'newUser',
+  login: API_HOST + 'auth/token',
+  trade: API_HOST + 'compte/cryptoTrade',
+  currencies: API_HOST + 'currencies',
+  me: API_HOST + 'auth/me'
 }

@@ -26,6 +26,31 @@
       </div>
       <button type="submit" class="subbutton">Se connecter</button>
     </form>
+     <form @submit.prevent="registerCredentials">
+      <div class="user-box">
+        <input
+          type="text"
+          name=""
+          required=""
+          id="regusername"
+          v-model="regusername"
+          autocomplete="off"
+        />
+        <label for="regusername">Username</label>
+      </div>
+      <div class="user-box">
+        <input
+          name=""
+          id="regpaswword"
+          v-model="regpassword"
+          type="password"
+          required=""
+          autocomplete="off"
+        />
+        <label>Password</label>
+      </div>
+      <button type="submit" class="subbutton">S'enregistrer</button>
+    </form>
   </div>
 </template>
 
@@ -43,6 +68,12 @@ export default {
       const login = this.username
       const password = this.password
       this.$store.dispatch('login', { login, password })
+    },
+    registerCredentials () {
+      const login = this.regusername
+      const password = this.regpassword
+      console.log(login)
+      this.$store.dispatch('registerUser', { login, password })
     }
   }
 }

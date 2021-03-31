@@ -41,7 +41,18 @@ export default createStore({
     }
   },
   actions: {
+    registerUser ({ commit }, credentials) {
+      console.log({ commit })
+      return api.registerUser(credentials)
+        .then(data => {
+          const { success, message } = data
+          if (!success) {
+            console.error(message)
+          }
+        })
+    },
     login ({ commit }, credentials) {
+      console.log(credentials)
       return api.login(credentials)
         .then(data => {
           const { success, token, message } = data
