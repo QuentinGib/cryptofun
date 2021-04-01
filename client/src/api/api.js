@@ -6,6 +6,7 @@ export default {
     return jsonClient.post(apiRoutes.registerUser, { body: credentials })
   },
   login (credentials) {
+    console.log(jsonClient.post(apiRoutes.login, { body: credentials }))
     return jsonClient.post(apiRoutes.login, { body: credentials })
   },
   trade (token) {

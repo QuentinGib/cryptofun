@@ -3,38 +3,40 @@ const tokenUtils = require('../utils/token-utils.js')
 const router = new express.Router()
 const dotenv= require('dotenv')
 const { getUserByLogin } = require('../models/user-queries.js')
+const { hash, compareHash } = require('../utils/crypto.js')
 
 router.post('/token', (req, res) => {
   // const authorizedLogin = process.env.AUTHORIZED_LOGIN
   // const authorizedPasswd = process.env.AUTHORIZED_PASSWD
-  console.log('a')
   const body = req.body
   getUserByLogin(body.login)
   .then(user => {
-    if (!body || !body.login || !body.password) {
-        res.status(401).json({
-            success: false,
-            message: 'Login and password are required'
+        if (!body || !body.login || !body.password) {
+            res.status(401).json({
+                success: false,
+                message: 'Login and password are required'
+            })
+            return
+        }
+        compareHash(body.password, user.password).then(isTrue => {
+          if ( !user || !isTrue) {
+              res.status(401).json({
+                  success: false,
+                  message: password
+              })
+              return
+          }
+          const payload = {
+              login: body.login,
+          }
+          const token = tokenUtils.createToken(payload)
+          res.status(201).json({
+              success: true,
+              token,
+              message: body.login
+          })
         })
-        return
-    }
-    if ( !user || body.password !== user.password /* user.password */ ) {
-        res.status(401).json({
-            success: false,
-            message: 'Invalid credentials'
-        })
-        return user
-    }
-    const payload = {
-        login: body.login,
-    }
-    const token = tokenUtils.createToken(payload)
-    res.status(201).json({
-        success: true,
-        token,
-        message: body.login
-    })    
-  })
+    })
 })
 
 router.get('/me', (req, res) => {
