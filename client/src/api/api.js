@@ -9,8 +9,8 @@ export default {
     console.log(jsonClient.post(apiRoutes.login, { body: credentials }))
     return jsonClient.post(apiRoutes.login, { body: credentials })
   },
-  trade (token) {
-    return jsonClient.getAuth(apiRoutes.trade, token)
+  trade (login) {
+    return jsonClient.post(apiRoutes.trade, { body: login })
   },
   currencies () {
     return jsonClient.get(apiRoutes.currencies)

@@ -6,10 +6,8 @@ export default createStore({
     user: undefined,
     currencies: [],
     tradeCurrencies: [],
-    holdings: null,
     holdingsNotNull: [],
-    sommeTotale: 0,
-    holdingDolls: -1
+    sommeTotale: 0
   },
   mutations: {
     setUser (state, user) {
@@ -21,36 +19,40 @@ export default createStore({
     setTradableCryptos (state, tradeCurrencies) {
       state.tradeCurrencies = tradeCurrencies
     },
-    setHoldings (state, holdings) {
-      if (state.holdings === null) {
-        state.holdings = holdings
-      }
-    },
     setSommeTotale (state, sommeCurrencies) {
       state.sommeTotale = Math.round((sommeCurrencies + state.holdingDolls) * 1000) / 1000
     },
     setHoldingsNotNull (state, holdingsNotNull) {
       state.holdingsNotNull = holdingsNotNull
-    },
-    setHoldingsDolls (state, difference) {
-      if (state.holdingDolls === -1) {
-        state.holdingDolls = 1000
-      } else {
-        state.holdingDolls += difference
-      }
     }
   },
   actions: {
     registerUser ({ commit }, credentials) {
       console.log({ commit })
-      return api.registerUser(credentials)
+      return api.currencies()
         .then(data => {
-          const { success, message } = data
-          if (!success) {
-            console.error(message)
-          }
+          const { success, currencies } = data
+          console.log(success)
+          const holdsTemp = currencies.slice(0, 11).map((currency) => ({
+            id: currency.id,
+            symbol: currency.symbol,
+            name: currency.name,
+            somme: 0
+          }))
+          api.registerUser({
+            login: credentials.login,
+            password: credentials.password,
+            holdings: holdsTemp
+          })
+            .then(data => {
+              const { success, message } = data
+              if (!success) {
+                console.error(message)
+              }
+            })
         })
     },
+
     login ({ commit }, credentials) {
       console.log(credentials)
       return api.login(credentials)
@@ -78,33 +80,33 @@ export default createStore({
         })
     },
 
-    cryptoTrade ({ commit }, token) {
-      api.trade(token)
+    cryptoTrade ({ commit }, login) {
+      return api.trade(login)
         .then(data => {
-          const { success, currencies } = data
+          console.log(data)
+          const { success, currencies, holds } = data
           if (!success) {
             console.error('erreur lors du chargement des infos')
             return
           }
           commit('setTradableCryptos', currencies.slice(0, 11))
-          // à mettre sur mongodb sans doute
-          const holdsTemp = currencies.slice(0, 11).map((currency) => ({
-            id: currency.id,
-            symbol: currency.symbol,
-            name: currency.name,
-            somme: 0
-          }))
-          commit('setHoldings', holdsTemp)
-          commit('setHoldingsNotNull', holdsTemp.filter(
+          // chercher les données dans mongodb
+          commit('setHoldingsNotNull', holds.holdings.filter(
             (crypto) => crypto.somme > 0
           ))
-          let sum = 0
-          for (const cryptoHolded of holdsTemp) {
+          let sum = holds.holdingDolls
+          for (const cryptoHolded of holds.holdings) {
             sum +=
               currencies.find((x) => x.id === cryptoHolded.id).price *
               cryptoHolded.somme
           }
           commit('setSommeTotale', sum)
+          return {
+            data: {
+              holdings: holds.holdings,
+              holdingDolls: holds.holdingDolls
+            }
+          }
         })
     },
 

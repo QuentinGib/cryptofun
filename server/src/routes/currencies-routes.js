@@ -1,6 +1,7 @@
 const express = require('express')
 
 const verifyToken = require('../middlewares/verify-token')
+const { getUserByLogin } = require('../models/user-queries.js')
 
 const router = new express.Router()
 
@@ -60,28 +61,35 @@ router.get('/', function getRoot(req, res) {
     })
 })
 
-router.get('/cryptoTrade', verifyToken, function getRoot(req, res) {
+router.post('/cryptoTrade', (req, res) => {
 
     const path = '/cryptocurrency/listings/latest'
 
-    fetchCMC(path)
-    .then(currencies => {
-        res.json({
-            success: true,
-            currencies: currencies.map(currency => ({
-                id: currency.id,
-                name: currency.name,
-                symbol: currency.symbol,
-                price: currency.quote.USD.price
-            })),
+    getUserByLogin(req.body.login)
+      .then(user => {
+        fetchCMC(path)
+        .then(currencies => {
+            res.json({
+                success: true,
+                currencies: currencies.map(currency => ({
+                    id: currency.id,
+                    name: currency.name,
+                    symbol: currency.symbol,
+                    price: currency.quote.USD.price
+                })),
+                holds: {
+                  holdings: user.holdings,
+                  holdingDolls: user.holdingDolls
+                }
+            })
         })
-    })
-    .catch(error => {
-        res.json({
-            success: false,
-            message: error.message
+        .catch(error => {
+            res.json({
+                success: false,
+                message: error.message
+            })
         })
-    })
+      })
 })
 
 module.exports = router

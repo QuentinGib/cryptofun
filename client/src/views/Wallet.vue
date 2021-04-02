@@ -104,23 +104,23 @@ export default {
       achat: 0,
       vente: 0,
       login: '',
-      cryptoSelected: ''
+      cryptoSelected: '',
+      holdings: [],
+      holdingDolls: 0
     }
   },
 
-  computed: mapState(['tradeCurrencies', 'holdings', 'sommeTotale', 'holdingsNotNull', 'holdingDolls']),
+  computed: mapState(['tradeCurrencies', 'sommeTotale', 'holdingsNotNull']),
 
   mounted () {
-    const token = localStorage.getItem('token')
+    // const token = localStorage.getItem('token')
     this.login = this.$store.state.user
-    this.$store.commit('setHoldingsDolls', 0)
 
-    this.$store.dispatch('cryptoTrade', token)
-    console.log('tradeCurrencies ', this.tradeCurrencies,
-      ' holdings ', this.holdings,
-      ' sommeTotale ', this.sommeTotale,
-      ' holdingsNotNull ', this.holdingsNotNull,
-      ' holdingDolls ', this.holdingDolls)
+    this.$store.dispatch('cryptoTrade', this.login)
+      .then(data => {
+        this.holdings = data.holdings
+        this.holdingDolls = data.holdingDolls
+      })
   },
 
   methods: {

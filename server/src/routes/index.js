@@ -17,7 +17,7 @@ router.use('/compte', /*verifyToken,*/ currenciesRoutes)
 router.post('/newUser', (req, res) => {
   const login = req.body.login
   const holdings = req.body.holdings
-  const holdingDolls = req.body.holdingDolls
+  const holdingDolls = 1000
   hash(req.body.password).then(password => {
 
     createUser({

@@ -8,6 +8,7 @@ import Cours from '@/views/Cours.vue'
 import Blockchain from '@/views/Cours/Blockchain.vue'
 import Crypto from '@/views/Cours/Crypto.vue'
 import Wallet from '@/views/Wallet.vue'
+import SignIn from '@/views/SignIn.vue'
 import { checkTokenBeforeEnter } from './router-utils'
 
 const routes = [
@@ -25,6 +26,11 @@ const routes = [
     path: '/graphiques',
     name: 'graphiques',
     component: Graphiques
+  },
+  {
+    path: '/signin',
+    name: 'signin',
+    component: SignIn
   },
   {
     path: '/porte_monnaie',
