@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="login-box">
     <h2>Login</h2>
     <form @submit.prevent="sendCredentials">
@@ -26,8 +27,9 @@
       </div>
       <button type="submit" class="subbutton">Se connecter</button>
     </form>
-    <router-link to="/signin">S'enregistrer</router-link>
   </div>
+  <router-link to="/signin" class='text-under'>S'enregistrer</router-link>
+</div>
 </template>
 
 <script>
@@ -50,6 +52,12 @@ export default {
 </script>
 
 <style>
+.text-under {
+  position: absolute;
+  top: 78%;
+  left: 47%;
+}
+
 .login-box {
   font-family: sans-serif;
   background: linear-gradient(#141e30, #243b55);

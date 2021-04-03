@@ -19,8 +19,8 @@ export default createStore({
     setTradableCryptos (state, tradeCurrencies) {
       state.tradeCurrencies = tradeCurrencies
     },
-    setSommeTotale (state, sommeCurrencies) {
-      state.sommeTotale = Math.round((sommeCurrencies + state.holdingDolls) * 1000) / 1000
+    setSommeTotale (state, sommeTotale) {
+      state.sommeTotale = sommeTotale
     },
     setHoldingsNotNull (state, holdingsNotNull) {
       state.holdingsNotNull = holdingsNotNull
@@ -83,7 +83,6 @@ export default createStore({
     cryptoTrade ({ commit }, login) {
       return api.trade(login)
         .then(data => {
-          console.log(data)
           const { success, currencies, holds } = data
           if (!success) {
             console.error('erreur lors du chargement des infos')
@@ -94,18 +93,17 @@ export default createStore({
           commit('setHoldingsNotNull', holds.holdings.filter(
             (crypto) => crypto.somme > 0
           ))
-          let sum = holds.holdingDolls
+          let sum = 0
           for (const cryptoHolded of holds.holdings) {
             sum +=
               currencies.find((x) => x.id === cryptoHolded.id).price *
               cryptoHolded.somme
           }
+          sum = Math.round((sum + holds.holdingDolls) * 1000) / 1000
           commit('setSommeTotale', sum)
           return {
-            data: {
-              holdings: holds.holdings,
-              holdingDolls: holds.holdingDolls
-            }
+            holdings: holds.holdings,
+            holdingDolls: holds.holdingDolls
           }
         })
     },
@@ -126,6 +124,24 @@ export default createStore({
           }
 
           commit('setUser', user)
+          return true
+        })
+    },
+
+    modifyUser ({ commit }, data) {
+      const token = localStorage.getItem('token')
+      if (!token) {
+        return
+      }
+      return api.modifyUser(token, data)
+        .then(data => {
+          const { success, message } = data
+
+          if (!success) {
+            // Afficher le message d'erreur à l'utilisateur
+            console.warn(message)
+            return false
+          }
           return true
         })
     }

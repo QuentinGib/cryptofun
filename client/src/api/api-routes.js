@@ -5,5 +5,6 @@ export default {
   login: API_HOST + 'auth/token',
   trade: API_HOST + 'compte/cryptoTrade',
   currencies: API_HOST + 'currencies',
-  me: API_HOST + 'auth/me'
+  me: API_HOST + 'auth/me',
+  modifyUser: API_HOST + 'auth/newData'
 }

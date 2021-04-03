@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="login-box">
-    <h2>Tapez vos identifiants :</h2>
+    <h2>Choisissez vos identifiants :</h2>
     <form @submit.prevent="registerCredentials">
       <div class="user-box">
         <input
@@ -25,10 +25,10 @@
         />
         <label>Password</label>
       </div>
-      <button type="submit" class="subbutton">S'enregistrer'</button>
+      <button type="submit" class="subbutton">S'enregistrer</button>
     </form>
   </div>
-  <router-link to="/porte_monnaie">Retour</router-link>
+  <router-link to="/porte_monnaie" class='text-under'>Retour</router-link>
 </div>
 </template>
 

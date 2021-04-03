@@ -17,5 +17,8 @@ export default {
   },
   checkToken (token) {
     return jsonClient.getAuth(apiRoutes.me, token)
+  },
+  modifyUser (token, data) {
+    return jsonClient.post(apiRoutes.modifyUser, { headers: { Authorization: 'Bearer ' + token }, body: data })
   }
 }

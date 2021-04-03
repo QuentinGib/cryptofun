@@ -113,7 +113,6 @@ export default {
   computed: mapState(['tradeCurrencies', 'sommeTotale', 'holdingsNotNull']),
 
   mounted () {
-    // const token = localStorage.getItem('token')
     this.login = this.$store.state.user
 
     this.$store.dispatch('cryptoTrade', this.login)
@@ -135,9 +134,9 @@ export default {
           this.tradeCurrencies.find((crypto) => crypto.name === this.cryptoSelected)
             .price
         this.holdingDolls -= this.achat
-        this.$store.commit('setHoldings', this.holdings)
-        this.$store.commit('setHoldingsDolls', this.achat)
-        window.location.reload()
+        var newData = { holdings: this.holdings, holdingDolls: this.holdingDolls }
+        this.$store.dispatch('modifyUser', newData)
+          .then(window.location.reload())
       } else {
         alert("Erreur lors de l'achat")
       }
@@ -158,9 +157,9 @@ export default {
           )
         ].somme -= venteEnCrypto
         this.holdingDolls += this.vente
-        this.$store.commit('setHoldings', this.holdings)
-        this.$store.commit('setHoldingsDolls', this.vente)
-        window.location.reload()
+        var newData = { holdings: this.holdings, holdingDolls: this.holdingDolls }
+        this.$store.dispatch('modifyUser', newData)
+          .then(window.location.reload())
       } else {
         alert('Erreur lors de la vente')
       }

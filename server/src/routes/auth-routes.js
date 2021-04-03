@@ -2,7 +2,7 @@ const express = require('express')
 const tokenUtils = require('../utils/token-utils.js')
 const router = new express.Router()
 const dotenv= require('dotenv')
-const { getUserByLogin } = require('../models/user-queries.js')
+const { getUserByLogin, modifyUser } = require('../models/user-queries.js')
 const { hash, compareHash } = require('../utils/crypto.js')
 
 router.post('/token', (req, res) => {
@@ -59,6 +59,37 @@ router.get('/me', (req, res) => {
         login,
         password: undefined
       }
+    })
+  } catch (error) {
+    response.status(401)
+      .json({
+        success: false,
+        message: 'Token invalide'
+      })
+  }
+})
+
+router.post('/newData', (req, res) => {
+  const token = req.headers.authorization.replace('Bearer ', '')
+  const body = req.body
+
+  const response = res
+    .header('Cache-Control', 'private, no-cache, no-store, must-revalidate')
+    .header('Expires', '-1')
+    .header('Pragma', 'no-cache')
+
+  try {
+    const payload = tokenUtils.checkToken(token)
+    const login = payload.login
+    const userData = {
+      login,
+      holdings: body.holdings,
+      holdingDolls: body.holdingDolls
+    }
+    modifyUser(userData)
+    response.json({
+      success: true,
+      message: 'Done updating'
     })
   } catch (error) {
     response.status(401)
