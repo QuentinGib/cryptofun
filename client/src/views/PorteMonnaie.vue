@@ -46,6 +46,16 @@ export default {
       const login = this.username
       const password = this.password
       this.$store.dispatch('login', { login, password })
+        .then(result => {
+          if (result === true) {
+            this.$router.push({
+              name: 'wallet',
+              query: { redirect: '/wallet' }
+            })
+          } else {
+            window.alert('Invalid credentials !')
+          }
+        })
     }
   }
 }

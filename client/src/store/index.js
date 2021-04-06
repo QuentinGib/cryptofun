@@ -60,11 +60,12 @@ export default createStore({
           const { success, token, message } = data
           if (!success) {
             // afficher le message contenu dans `message`
-            console.error(message)
-            return
+            window.alert(message)
+            return false
           }
           localStorage.setItem('token', token)
           commit('setUser', message)
+          return true
         })
     },
 

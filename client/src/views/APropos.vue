@@ -1,4 +1,5 @@
 <template>
+<div>
   <h1 class="ap-titre">À propos</h1>
   <p class="ap-paragraphe">
     Ce site a été réalisé dans le cadre d'un cours de developpement web.
@@ -14,6 +15,7 @@
     GitHub du projet :
     <a href="https://github.com/QuentinGib/cryptofun.git">CryptoFun</a>
   </p>
+</div>
 </template>
 
 <script>

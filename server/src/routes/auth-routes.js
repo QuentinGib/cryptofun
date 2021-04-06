@@ -6,8 +6,6 @@ const { getUserByLogin, modifyUser } = require('../models/user-queries.js')
 const { hash, compareHash } = require('../utils/crypto.js')
 
 router.post('/token', (req, res) => {
-  // const authorizedLogin = process.env.AUTHORIZED_LOGIN
-  // const authorizedPasswd = process.env.AUTHORIZED_PASSWD
   const body = req.body
   getUserByLogin(body.login)
   .then(user => {
@@ -51,7 +49,6 @@ router.get('/me', (req, res) => {
     const payload = tokenUtils.checkToken(token)
     const login = payload.login
     // Chercher et trouver l'utilisateur correspondant à ce login
-    // TODO: à faire avec mongodb
     console.log({ payload })
     response.json({
       success: true,
