@@ -1,4 +1,4 @@
-FROM node:15.11.0 as build
+FROM node:14.16.0 as build
 
 WORKDIR /app
 
@@ -11,7 +11,7 @@ RUN npm run build
 
 CMD ["npm", "run", "dev"]
 
-FROM node:15.11.0 as production
+FROM node:14.16.0 as production
 
 WORKDIR /app
 
