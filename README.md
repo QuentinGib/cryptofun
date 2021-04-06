@@ -12,6 +12,10 @@ Server:
 - Isomorphic fetch: permet d'assurer la consistence de la fonction fetch pour n'importe quel navigateur
 - Jsonwebtoken: permet de gérer les connexions des utilisateurs à l'aide de tokens
 - Token utils: permet d'effectuer des opérations sur les tokens
+- bcrypt : permet d'utiliser des fonctions de hashage pour le password
+- cors : utile pour desactiver les restrictions cors sur les fetch api
+- mongodb et mongoose : connection à la bdd mongoDB sur mongoAtlas
+- node-sass et sass-loader : permet de compiler Sass en CSS
 
 -----------------
 ## Lancement
@@ -41,7 +45,9 @@ Cette page permet de visualiser les prix et cours des cryptomonnaies les plus im
 
 ### Page Wallet
 
-Ici, l'utilisateur pourra accèder à son compte utilisateur. Après avoir rentré ses identifiants, il accède à une page personnelle où sont affichés plusieurs informations :
+Ici, l'utilisateur pourra accèder à son compte utilisateur. Il peut également accéder à une autre page pour enregistrer ses identifiants si cela n'a pas déjà été fait.
+
+Après avoir rentré ses identifiants, il accède à une page personnelle où sont affichés plusieurs informations :
 
 * __Valeur totale__ est ce que possède réellement l'utilisateur, c'est à dire la valeur de ses cryptos et de ses dollars, en temps réel et calculé en dollars.
 * __Monnaie disponible__ est la quantité en dollars que l'utilisateur a à disposition. Cette valeur ne change que s'il achète des cryptos ou en vend.
